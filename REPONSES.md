@@ -120,11 +120,11 @@ We still have only one instance of class Circle.
 
     Rectangle: [(0.0,0.0), (5.0,3.0)]
 
-    perimeter: 16
+    perimeter: 16.0
 
     Rectangle: [(2.0,5.0), (7.0,8.0)]
 
-    perimeter: 16
+    perimeter: 16.0
 
 2. Variable bl will reference a point with coordinates 0.0,0.0
 Variable ur will refernce a different point than bl with coordinates 5.0,3.0
@@ -140,11 +140,11 @@ top right of the point bl and not the other way around.
 
     Rectangle: [(0.0), (5.0,3.0)]
 
-    perimeter: 16
+    perimeter: 16.0
 
     Rectangle: [(10.0,10.0), (5.0,3.0)]
 
-    perimeter: -24
+    perimeter: -24.0
 
     The perimeter is now negative which makes sense because of how we defined the function that gives us the perimeter, the method that gives us 
     the perimeter always substracts the values of bl from the values of ur, but since they are greater we are left with negative values, after
@@ -152,8 +152,10 @@ top right of the point bl and not the other way around.
 
 4. In the constructor we will initialize both attributes like this:
 
+    ```java
     this.bl = new Point(bottomLeft);
-    
+
     this.ur = new Point(upperRight);
+    ```
 
 
