@@ -138,6 +138,7 @@ top right of the point bl and not the other way around.
 
     This program will now output:
 
+    ```console
     Rectangle: [(0.0), (5.0,3.0)]
 
     perimeter: 16.0
@@ -145,6 +146,7 @@ top right of the point bl and not the other way around.
     Rectangle: [(10.0,10.0), (5.0,3.0)]
 
     perimeter: -24.0
+    ```
 
     The perimeter is now negative which makes sense because of how we defined the function that gives us the perimeter, the method that gives us 
     the perimeter always substracts the values of bl from the values of ur, but since they are greater we are left with negative values, after
