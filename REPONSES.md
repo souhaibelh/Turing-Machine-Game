@@ -5,6 +5,7 @@
 1. This program will output:
 
     (0.0,0.0)
+
     (2.0,2.0)
 
 2. It asks us to declare the public class TestClass in a separate java file named TestClass.java
@@ -19,7 +20,9 @@ Point from outside the class scope (Private class members can only be accessed w
 2. This program will outpu: 
 
     (0.0,0.0)
+
     méthode move(int, int)
+
     (2.0,2.0)
 
     This is because we are passing in 2 integers as an argument and we have defined a function that actually accepts those 
@@ -41,6 +44,7 @@ we don't get any more error messages.
     This program will output: 
 
     (0.0,0.0)
+
     (2.0,2.0)
 
     This is because both attributes in the class are "valeurs numeriques" which means the default constructor given by 
@@ -51,6 +55,7 @@ we don't get any more error messages.
 output: 
 
     (10.0,10.0)
+    
     (12.0,12.0)
 
 ### Question 4
@@ -60,7 +65,7 @@ output:
     Circle: [(0.0,0.0), 5.0]
 
     Circle: [(2.0,5.0), 5.0]
-    
+
     Circle: [(2.0,5.0), 10.0]
 
 2. Only one instance of Point is created.
