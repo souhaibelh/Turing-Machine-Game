@@ -121,7 +121,7 @@ so basically same point shareda mongst all the 3.
 
 5. Now we have 3 instances of class Point (one when we create the Point p, the other one when we call the constructor of 
 class Circle which creates a new point with same coordiantes as point p and assigns it to our attribute center, and the last
-one is created by the method getCenter() when it is and we assign it to p2)
+one is created by the method getCenter() when it is called and we assign it to p2)
 We still have only one instance of class Circle.
 
     The instance referenced by the variable p is the point that has coordinates 0.0,0.0
@@ -151,7 +151,7 @@ explained above).
 
 3. Invariant is not respected since now the point bl will have as coordinates: (10.0,10.0) and the point ur will have as coordinates
 (5.0,3.0), both coordinates of point br are bigger than the respective coordinates of point ur, which means that the point bl is 
-now actually in the top right of the point ur, so the invariant wasn't respected at all, since we always want to have point ur in the
+now actually at the top right of the point ur, so the invariant wasn't respected at all, since we always want to have point ur in the
 top right of the point bl and not the other way around.
 
     This program will now output:
