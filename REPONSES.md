@@ -55,7 +55,7 @@ we don't get any more error messages.
 output: 
 
     (10.0,10.0)
-    
+
     (12.0,12.0)
 
 ### Question 4
@@ -153,6 +153,7 @@ top right of the point bl and not the other way around.
 4. In the constructor we will initialize both attributes like this:
 
     this.bl = new Point(bottomLeft);
+    
     this.ur = new Point(upperRight);
 
 
