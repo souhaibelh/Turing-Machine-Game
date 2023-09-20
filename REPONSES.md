@@ -4,9 +4,11 @@
 
 1. This program will output:
 
+    ```console
     (0.0,0.0)
 
     (2.0,2.0)
+    ```
 
 2. It asks us to declare the public class TestClass in a separate java file named TestClass.java
 
@@ -17,13 +19,15 @@
 1. We get the error x has private access, this is because we are trying to access a private member of the class
 Point from outside the class scope (Private class members can only be accessed within the class scope).
 
-2. This program will outpu: 
+2. This program will output: 
 
+    ```console
     (0.0,0.0)
 
     méthode move(int, int)
 
     (2.0,2.0)
+    ```
 
     This is because we are passing in 2 integers as an argument and we have defined a function that actually accepts those 
     integers so instead of converting them to doubles and using the other method we will use the newly added one.
@@ -43,9 +47,11 @@ we don't get any more error messages.
 
     This program will output: 
 
+    ```console
     (0.0,0.0)
 
     (2.0,2.0)
+    ```
 
     This is because both attributes in the class are "valeurs numeriques" which means the default constructor given by 
     java to this class will initialize both of them to 0, thats why as a first output we get (0.0,0.0), then we use the method
@@ -54,19 +60,23 @@ we don't get any more error messages.
 3. Both attributes are initialized to 10, so the default constructor doesn't initialize them anymore, hence we get this 
 output: 
 
+    ```console
     (10.0,10.0)
 
     (12.0,12.0)
+    ```
 
 ### Question 4
 
 1. This program will output:
 
+    ```console
     Circle: [(0.0,0.0), 5.0]
 
     Circle: [(2.0,5.0), 5.0]
 
     Circle: [(2.0,5.0), 10.0]
+    ```
 
 2. Only one instance of Point is created.
 
@@ -74,11 +84,13 @@ output:
 
 1. This program will output: 
 
+    ```console
     Circle: [(0.0,0.0), 5.0]
 
     Circle: [(2.0,5.0), 5.0]
 
     Circle: [(0.0,0.0), 5.0]
+    ```
 
 2. One instance of Point is created and one instance of Circle is created.
 Since we only have one instance of the class Point, both p and p2 are referencing the same instance of class Point.
@@ -89,19 +101,23 @@ so basically same point shareda mongst all the 3.
 
 3. This program will output:
 
+    ```console
     Circle: [(0.0,0.0), 5.0]
 
     Circle: [(0.0,0.0), 5.0]
 
     Circle: [(-2.0,-5.0), 5.0]
+    ```
 
 4. This program will output: 
 
+    ```console
     Circle: [(0.0,0.0), 5.0]
 
     Circle: [(0.0,0.0), 5.0]
 
     Circle: [(0.0,0.0), 5.0]
+    ```
 
 5. Now we have 3 instances of class Point (one when we create the Point p, the other one when we call the constructor of 
 class Circle which creates a new point with same coordiantes as point p and assigns it to our attribute center, and the last
@@ -118,6 +134,7 @@ We still have only one instance of class Circle.
 
 1. This program will output:
 
+    ```console
     Rectangle: [(0.0,0.0), (5.0,3.0)]
 
     perimeter: 16.0
@@ -125,6 +142,7 @@ We still have only one instance of class Circle.
     Rectangle: [(2.0,5.0), (7.0,8.0)]
 
     perimeter: 16.0
+    ```
 
 2. Variable bl will reference a point with coordinates 0.0,0.0
 Variable ur will refernce a different point than bl with coordinates 5.0,3.0
