@@ -106,8 +106,11 @@ We still have only one instance of class Circle.
 1. This program will output:
 
     Rectangle: [(0.0,0.0), (5.0,3.0)]
+
     perimeter: 16
+
     Rectangle: [(2.0,5.0), (7.0,8.0)]
+
     perimeter: 16
 
 2. Variable bl will reference a point with coordinates 0.0,0.0
@@ -123,8 +126,11 @@ top right of the point bl and not the other way around.
     This program will now output:
 
     Rectangle: [(0.0), (5.0,3.0)]
+
     perimeter: 16
+
     Rectangle: [(10.0,10.0), (5.0,3.0)]
+    
     perimeter: -24
 
     The perimeter is now negative which makes sense because of how we defined the function that gives us the perimeter, the method that gives us 
