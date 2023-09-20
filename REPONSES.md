@@ -157,7 +157,7 @@ top right of the point bl and not the other way around.
     This program will now output:
 
     ```console
-    Rectangle: [(0.0), (5.0,3.0)]
+    Rectangle: [(0.0,0.0), (5.0,3.0)]
 
     perimeter: 16.0
 
@@ -178,4 +178,14 @@ top right of the point bl and not the other way around.
     this.ur = new Point(upperRight);
     ```
 
+    This program now outputs:
 
+    ```console
+    Rectangle: [(0.0,0.0), (5.0,3.0)]
+
+    perimeter: 16.0
+
+    Rectangle: [(0.0,0.0), (5.0,3.0)]
+
+    perimeter: 16.0
+    ```
