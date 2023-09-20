@@ -1,5 +1,6 @@
 package g61610.atl.ascii.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Drawing {
@@ -8,11 +9,13 @@ public class Drawing {
     private int width;
 
     public Drawing() {
+        this.shapes = new ArrayList<Shape>();
         this.height = 200;
         this.width = 200;
     }
 
     public Drawing(int width, int height) {
+        this.shapes = new ArrayList<Shape>();
         this.height = height;
         this.width = width;
     }
@@ -36,5 +39,9 @@ public class Drawing {
 
     public int getWidth() {
         return this.width;
+    }
+
+    public List<Shape> getShapes() {
+        return this.shapes;
     }
 }

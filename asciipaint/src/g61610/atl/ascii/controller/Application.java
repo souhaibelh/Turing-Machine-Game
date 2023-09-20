@@ -8,4 +8,8 @@ public class Application {
     public Application(int width, int height) {
         this.paint = new AsciiPaint(width,height);
     }
+
+    public AsciiPaint getPaint() {
+        return this.paint;
+    }
 }

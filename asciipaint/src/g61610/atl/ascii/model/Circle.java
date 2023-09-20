@@ -11,7 +11,13 @@ public class Circle extends ColoredShape {
     }
 
     public boolean isInside(Point p) {
-        if (p.distanceTo(this.center) <= this.radius) {
+        boolean insidebool;
+        if (radius < 4) {
+            insidebool = p.distanceTo(this.center) <= this.radius;
+        } else {
+            insidebool = p.distanceTo(this.center) < this.radius;
+        }
+        if (insidebool) {
             return true;
         } else {
             return false;

@@ -13,8 +13,7 @@ public class Rectangle extends ColoredShape {
     }
 
     public boolean isInside(Point p) {
-        if ((p.getY() >= Math.abs(this.upperLeft.getY() - height) && p.getY() <= this.upperLeft.getY())
-        && (p.getX() >= this.upperLeft.getX() && p.getX() <= this.upperLeft.getX() + width)) {
+        if (p.getX() > this.upperLeft.getX() && p.getX() < this.upperLeft.getX() + width && (p.getY() < this.upperLeft.getY() && p.getY() > this.upperLeft.getY() - height)) {
             return true;
         } else {
             return false;
