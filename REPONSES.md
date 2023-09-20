@@ -58,7 +58,9 @@ output:
 1. This program will output:
 
     Circle: [(0.0,0.0), 5.0]
+
     Circle: [(2.0,5.0), 5.0]
+    
     Circle: [(2.0,5.0), 10.0]
 
 2. Only one instance of Point is created.
@@ -68,7 +70,9 @@ output:
 1. This program will output: 
 
     Circle: [(0.0,0.0), 5.0]
+
     Circle: [(2.0,5.0), 5.0]
+
     Circle: [(0.0,0.0), 5.0]
 
 2. One instance of Point is created and one instance of Circle is created.
@@ -81,13 +85,17 @@ so basically same point shareda mongst all the 3.
 3. This program will output:
 
     Circle: [(0.0,0.0), 5.0]
+
     Circle: [(0.0,0.0), 5.0]
+
     Circle: [(-2.0,-5.0), 5.0]
 
 4. This program will output: 
 
     Circle: [(0.0,0.0), 5.0]
+
     Circle: [(0.0,0.0), 5.0]
+
     Circle: [(0.0,0.0), 5.0]
 
 5. Now we have 3 instances of class Point (one when we create the Point p, the other one when we call the constructor of 
@@ -130,7 +138,7 @@ top right of the point bl and not the other way around.
     perimeter: 16
 
     Rectangle: [(10.0,10.0), (5.0,3.0)]
-    
+
     perimeter: -24
 
     The perimeter is now negative which makes sense because of how we defined the function that gives us the perimeter, the method that gives us 
