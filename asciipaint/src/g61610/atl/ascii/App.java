@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class App {
     public static boolean[] askInput(Application board) {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("What is your next move player! (If are confused, type commands to get a " +
+        System.out.println("What is your next move, Picasso! (If you are confused, type commands to get a " +
                 " list of everything you can do!)");
         String move = keyboard.nextLine();
 
@@ -53,14 +53,15 @@ public class App {
                     String shapename;
                     if (totalshapes.get(i) instanceof Circle) {
                         shapename = "Circle";
-                    } else if (totalshapes.get(i) instanceof Rectangle) {
+                    } else if (totalshapes.get(i).getClass().getName().equals("g61610.atl.ascii.model.Rectangle")) {
                         shapename = "Rectangle";
                     } else {
                         shapename = "Square";
                     }
-                    System.out.println("    " + (i + 1) + ". Shape: " + shapename + ". Color: " + totalshapes.get(i).getColor());
+                    System.out.println("    " + (i + 1) + ". Shape: " + shapename + ". Color: " + totalshapes.get(i).getColor() + " [index: " + i + " , use this number to move/remove or change the colour of the shape]");
                 }
                 System.out.println();
+                returnedoptions[1] = false;
                 break;
             default:
                 if (addrectangle.matcher(move).matches()) {
@@ -98,8 +99,8 @@ public class App {
                     Matcher matcher = moveshape.matcher(move);
                     matcher.find();
                     int index = Integer.parseInt(matcher.group(1));
-                    Double offsetX = Double.parseDouble(matcher.group(2));
-                    Double offsetY = Double.parseDouble(matcher.group(3));
+                    double offsetX = Double.parseDouble(matcher.group(2));
+                    double offsetY = Double.parseDouble(matcher.group(3));
                     board.getPaint().getDrawing().getShapes().get(index).move(offsetX,offsetY);
                 }
         }
@@ -108,17 +109,22 @@ public class App {
 
     public static Application startDrawingBoard() {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("What dimensions do you wish your drawing board to have, use the format -> width height (ex: 150 200): ");
+        System.out.println("What dimensions do you wish your drawing board to have, use the format -> width height (ex: 150 200), or type default for default dimensions: ");
         String dim = keyboard.nextLine();
         Pattern dimensions = Pattern.compile("^([0-9]+) ([0-9]+)");
-        while (!dimensions.matcher(dim).find()) {
+        while (!dimensions.matcher(dim).find() && !dim.equals("default")) {
             System.out.println("Invalid input, make sure to type the dimensions in the following format with no extra spaces: width height");
             dim = keyboard.nextLine();
         }
-        Matcher dimmatcher = dimensions.matcher(dim);
-        dimmatcher.find();
-        Application board = new Application(Integer.parseInt(dimmatcher.group(1)),
-                Integer.parseInt(dimmatcher.group(2)));
+        Application board;
+        if (dim.equals("default")) {
+            board = new Application();
+        } else {
+            Matcher dimmatcher = dimensions.matcher(dim);
+            dimmatcher.find();
+            board = new Application(Integer.parseInt(dimmatcher.group(1)),
+                    Integer.parseInt(dimmatcher.group(2)));
+        }
         return board;
     }
 

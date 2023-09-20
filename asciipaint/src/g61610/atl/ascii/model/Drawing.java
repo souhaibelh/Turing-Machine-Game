@@ -10,8 +10,8 @@ public class Drawing {
 
     public Drawing() {
         this.shapes = new ArrayList<Shape>();
-        this.height = 200;
-        this.width = 200;
+        this.height = 25;
+        this.width = 25;
     }
 
     public Drawing(int width, int height) {
@@ -25,12 +25,13 @@ public class Drawing {
     }
 
     public Shape getShapeAt(Point p) {
+        Shape latestShape = null;
         for (int i=0; i<this.shapes.size(); i++) {
             if (this.shapes.get(i).isInside(p)) {
-                return this.shapes.get(i);
+                latestShape = this.shapes.get(i);
             }
         }
-        return null;
+        return latestShape;
     }
 
     public int getHeight() {

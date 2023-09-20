@@ -9,6 +9,10 @@ public class Application {
         this.paint = new AsciiPaint(width,height);
     }
 
+    public Application() {
+        this.paint = new AsciiPaint();
+    }
+
     public AsciiPaint getPaint() {
         return this.paint;
     }
