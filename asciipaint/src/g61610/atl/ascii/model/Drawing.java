@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Drawing {
-    private List<Shape> shapes;
-    private int height;
-    private int width;
-
-    public Drawing() {
-        this.shapes = new ArrayList<Shape>();
-        this.height = 25;
-        this.width = 25;
-    }
+    private List<Shape> shapes = new ArrayList<>();
+    private final int height;
+    private final int width;
 
     public Drawing(int width, int height) {
-        this.shapes = new ArrayList<Shape>();
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Drawing board width or height cannot be smaller or equal to 0");
+        }
         this.height = height;
         this.width = width;
+    }
+
+    public Drawing() {
+        this(50,50); // Default constructor with default width and height.
     }
 
     public void addShape(Shape shape) {
@@ -25,13 +25,12 @@ public class Drawing {
     }
 
     public Shape getShapeAt(Point p) {
-        Shape latestShape = null;
-        for (int i=0; i<this.shapes.size(); i++) {
+        for (int i=this.shapes.size() - 1; i>=0; i--) {
             if (this.shapes.get(i).isInside(p)) {
-                latestShape = this.shapes.get(i);
+                return this.shapes.get(i);
             }
         }
-        return latestShape;
+        return null;
     }
 
     public int getHeight() {
@@ -43,6 +42,7 @@ public class Drawing {
     }
 
     public List<Shape> getShapes() {
-        return this.shapes;
+        List<Shape> defensivecopy = List.copyOf(this.shapes);
+        return defensivecopy;
     }
 }

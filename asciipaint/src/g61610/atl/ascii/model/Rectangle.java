@@ -7,17 +7,16 @@ public class Rectangle extends ColoredShape {
 
     public Rectangle(Point upperLeft, double width, double height, char color) {
         super(color);
-        this.upperLeft = upperLeft;
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Rectangles width and height must be greater than 0");
+        }
+        this.upperLeft = new Point(upperLeft);
         this.width = width;
         this.height = height;
     }
 
     public boolean isInside(Point p) {
-        if (p.getX() > this.upperLeft.getX() && p.getX() <= this.upperLeft.getX() + width && (p.getY() < this.upperLeft.getY() && p.getY() >= this.upperLeft.getY() - height)) {
-            return true;
-        } else {
-            return false;
-        }
+        return p.getX() > this.upperLeft.getX() && p.getX() <= this.upperLeft.getX() + width && (p.getY() < this.upperLeft.getY() && p.getY() >= this.upperLeft.getY() - height);
     }
 
     public void move(double dx, double dy) {

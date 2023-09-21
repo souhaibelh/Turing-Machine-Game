@@ -2,7 +2,6 @@ package g61610.atl.ascii;
 
 import g61610.atl.ascii.controller.Application;
 import g61610.atl.ascii.model.Circle;
-import g61610.atl.ascii.model.Rectangle;
 import g61610.atl.ascii.model.Shape;
 import g61610.atl.ascii.view.View;
 

@@ -1,7 +1,7 @@
 package g61610.atl.ascii.model;
 
 public class AsciiPaint {
-    private Drawing drawing;
+    private final Drawing drawing;
 
     public AsciiPaint() {
         this.drawing = new Drawing();
