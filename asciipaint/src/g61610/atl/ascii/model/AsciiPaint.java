@@ -26,4 +26,12 @@ public class AsciiPaint {
     public Drawing getDrawing() {
         return this.drawing;
     }
+
+    public void moveShape(int index, int x, int y) {
+        this.drawing.getShapes().get(index).move(x,y);
+    }
+
+    public void changeShapeColor(int index, char newcolor) {
+        this.drawing.getShapes().get(index).setColor(newcolor);
+    }
 }

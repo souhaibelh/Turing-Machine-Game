@@ -44,6 +44,7 @@ public class App {
                 return returnedoptions;
             case "show":
                 View.show(board.getPaint());
+                returnedoptions[1] = false;
                 break;
             case "list":
                 List<Shape> totalshapes = board.getPaint().getDrawing().getShapes();
@@ -93,14 +94,14 @@ public class App {
                     matcher.find();
                     int index = Integer.parseInt(matcher.group(1));
                     char newcolor = matcher.group(2).charAt(0);
-                    board.getPaint().getDrawing().getShapes().get(index).setColor(newcolor);
+                    board.getPaint().changeShapeColor(index,newcolor);
                 } else if (moveshape.matcher(move).matches()) {
                     Matcher matcher = moveshape.matcher(move);
                     matcher.find();
                     int index = Integer.parseInt(matcher.group(1));
-                    double offsetX = Double.parseDouble(matcher.group(2));
-                    double offsetY = Double.parseDouble(matcher.group(3));
-                    board.getPaint().getDrawing().getShapes().get(index).move(offsetX,offsetY);
+                    int offsetX = Integer.parseInt(matcher.group(2));
+                    int offsetY = Integer.parseInt(matcher.group(3));
+                    board.getPaint().moveShape(index,offsetX,offsetY);
                 }
         }
         return returnedoptions;

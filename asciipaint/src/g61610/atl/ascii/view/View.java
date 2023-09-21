@@ -7,6 +7,9 @@ import g61610.atl.ascii.model.Shape;
 public class View {
     public static void show(AsciiPaint paint) {
         for (int i=0; i<=paint.getDrawing().getWidth(); i++) {
+            System.out.print("---");
+        }
+        for (int i=0; i<=paint.getDrawing().getWidth(); i++) {
             for (int j=0; j<=paint.getDrawing().getHeight(); j++){
                 Point p = new Point(i,j);
                 Shape currentshape = paint.getDrawing().getShapeAt(p);
@@ -18,6 +21,10 @@ public class View {
             }
             System.out.println();
         }
+        for (int i=0; i<=paint.getDrawing().getWidth(); i++) {
+            System.out.print("---");
+        }
+        System.out.println();
     }
 
     public static void displayCommands() {

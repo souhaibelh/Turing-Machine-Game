@@ -42,7 +42,6 @@ public class Drawing {
     }
 
     public List<Shape> getShapes() {
-        List<Shape> defensivecopy = List.copyOf(this.shapes);
-        return defensivecopy;
+        return List.copyOf(this.shapes);
     }
 }
