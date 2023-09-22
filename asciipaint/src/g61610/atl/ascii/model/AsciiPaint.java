@@ -1,5 +1,7 @@
 package g61610.atl.ascii.model;
 
+import java.util.List;
+
 public class AsciiPaint {
     private final Drawing drawing;
 
@@ -25,6 +27,10 @@ public class AsciiPaint {
 
     public Drawing getDrawing() {
         return this.drawing;
+    }
+
+    public List<Shape> getShapes() {
+        return this.drawing.getShapes();
     }
 
     public void moveShape(int index, int x, int y) {
