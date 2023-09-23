@@ -2,6 +2,7 @@ package g61610.atl.ascii;
 
 import g61610.atl.ascii.controller.Application;
 import g61610.atl.ascii.model.Circle;
+import g61610.atl.ascii.model.Point;
 import g61610.atl.ascii.model.Shape;
 import g61610.atl.ascii.model.Square;
 import g61610.atl.ascii.view.View;
@@ -172,7 +173,6 @@ public class App {
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
         boolean firstMenu = true;
-
         while (firstMenu) {
             System.out.println("WELCOME to ASCII Paint !");
             System.out.println("1. New drawing board");
