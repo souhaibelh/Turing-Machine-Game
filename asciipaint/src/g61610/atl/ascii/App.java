@@ -1,10 +1,7 @@
 package g61610.atl.ascii;
 
 import g61610.atl.ascii.controller.Application;
-import g61610.atl.ascii.model.Circle;
-import g61610.atl.ascii.model.Point;
-import g61610.atl.ascii.model.Shape;
-import g61610.atl.ascii.model.Square;
+import g61610.atl.ascii.model.*;
 import g61610.atl.ascii.view.View;
 
 import java.util.List;
@@ -25,6 +22,7 @@ public class App {
         }
         return move;
     }
+
     public static boolean[] askInput(Application board) {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("\nWhat is your next move, Picasso! (If you are confused, type commands to get a " +
@@ -72,12 +70,18 @@ public class App {
                 System.out.println("Shapes in the board:\n");
                 for (int i=0; i<totalshapes.size(); i++) {
                     String shapename;
-                    if (totalshapes.get(i) instanceof Circle) {
-                        shapename = "Circle";
-                    } else if (totalshapes.get(i) instanceof Square) {
-                        shapename = "Square";
-                    } else {
-                        shapename = "Rectangle";
+                    switch (totalshapes.get(i)) {
+                        case Circle c:
+                            shapename = "Circle";
+                            break;
+                        case Square s:
+                            shapename = "Square";
+                            break;
+                        case Rectangle r:
+                            shapename = "Rectangle";
+                            break;
+                        default:
+                            shapename = "Unrecognized Shape";
                     }
                     System.out.println("    " + (i + 1) + ". Shape: " + shapename + ". Color: " + totalshapes.get(i).getColor() + " [index: " + i + " , use this number to move/remove or change the colour of the shape]");
                 }
@@ -104,7 +108,7 @@ public class App {
                     Matcher squarematcher = addsquare.matcher(splitarguments[i]);
                     Matcher colorchangematcher = colorchange.matcher(splitarguments[i]);
                     Matcher moveshapematcher = moveshape.matcher(splitarguments[i]);
-
+                    
                     if (rectanglematcher.matches()) {
                         rectanglematcher = addrectangle.matcher(splitarguments[i]);
                         rectanglematcher.find();

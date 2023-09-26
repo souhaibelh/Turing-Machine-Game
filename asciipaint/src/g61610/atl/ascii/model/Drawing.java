@@ -1,7 +1,9 @@
 package g61610.atl.ascii.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class Drawing {
     private List<Shape> shapes = new ArrayList<>();
@@ -42,6 +44,6 @@ public class Drawing {
     }
 
     public List<Shape> getShapes() {
-        return List.copyOf(this.shapes);
+        return Collections.unmodifiableList(this.shapes);
     }
 }
