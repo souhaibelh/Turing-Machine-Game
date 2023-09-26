@@ -382,7 +382,7 @@ We call the function again with the same list that is now empty, since the list 
             if (o1.equals(o2)) {
                 return 0; // If both points are equal we return 0
             }
-            // If the points we are different we compare their coordinates and return an integer that will represent if point o1
+            // If the points are different we compare their coordinates and return an integer that will represent if point o1
             // is below to the left of point o2 or no, I assumed Points take doubles as coordinates x and y so we must cast to an
             // int the result of Math.round, Math.round gives us a long! we can safely cast it to a int!
             return (int) Math.round((o1.getX() - o2.getY()) + (o1.getY() - o2.getY()));
