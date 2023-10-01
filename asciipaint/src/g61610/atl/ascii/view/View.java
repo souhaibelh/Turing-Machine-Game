@@ -1,13 +1,11 @@
 package g61610.atl.ascii.view;
 
-import g61610.atl.ascii.model.*;
-
-import java.util.List;
+import g61610.atl.ascii.model.AsciiPaint;
+import g61610.atl.ascii.model.Point;
+import g61610.atl.ascii.model.Shape;
 
 public class View {
-
-
-    public static void displayBoard(AsciiPaint paint) {
+    public static void show(AsciiPaint paint) {
         for (int i=0; i<=paint.getDrawing().getWidth(); i++) {
             System.out.print("---");
         }
@@ -29,31 +27,10 @@ public class View {
         System.out.println();
     }
 
-    public static void displayList(List<Shape> shapeList) {
-        if (shapeList.isEmpty()) {
-            System.out.println("\nYour board is empty! Add some shapes first (If you don't know how press commands)");
-        }
-        for (int i=0; i<shapeList.size(); i++) {
-            String shapename;
-            if (shapeList.get(i) instanceof Circle) {
-                shapename = "Circle";
-            } else if (shapeList.get(i) instanceof Square) {
-                shapename = "Square";
-            } else {
-                shapename = "Rectangle";
-            }
-            System.out.println(i + ". Shape: " + shapename + "-> Color: " + shapeList.get(i).getColor());
-        }
-    }
-
     public static void displayCommands() {
         System.out.println("\nGAME COMMANDS:");
-        System.out.println("""
-
-                IMPORTANT*: For a circle, the x and y coordinates are meant to describe the center of the circle, for the rectangle and square they describe
-                the upper left point""");
-        System.out.println("\nMULTIPLE COMMANDS:\n");
-        System.out.println("    You can add multiple commands in one single line, just separate them by a coma! (you can combine any of the commands below in a single line, for example: add rectangle 15 15 15 15 D, add square 15 15 10 D, \n    move 10 10 10, add circle 15 10 5 D, color 10 D,)");
+        System.out.println("\nIMPORTANT*: For a circle, the x and y coordinates are meant to describe the" +
+                " center of the circle, for the rectangle and square they describe\nthe upper left point");
         System.out.println("\nADD SHAPE COMMANDS:");
         System.out.println("\n    -add circle command: add circle x y radius color");
         System.out.println("    -add rectangle command: add rectangle x y width height color");
@@ -63,6 +40,6 @@ public class View {
         System.out.println("    -list command: list <- this command shows a ordered list of all the shapes in the board");
         System.out.println("    -color command: color i z <- this command replaces the color of the shape at the index i for the color z");
         System.out.println("    -move i a b <- this command moves the shape at the index i by an offset of a in the x axis and an offset of b in the y axis");
-        System.out.println("    -exit <- exits the game and brings you back to the first menu");
+        System.out.println("    -exit <- exits the game and brings you back to the first menu\n");
     }
 }

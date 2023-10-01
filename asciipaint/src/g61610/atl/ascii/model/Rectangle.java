@@ -1,9 +1,9 @@
 package g61610.atl.ascii.model;
 
 public class Rectangle extends ColoredShape {
-    private final Point upperLeft;
-    private final double width;
-    private final double height;
+    private Point upperLeft;
+    private double width;
+    private double height;
 
     public Rectangle(Point upperLeft, double width, double height, char color) {
         super(color);
