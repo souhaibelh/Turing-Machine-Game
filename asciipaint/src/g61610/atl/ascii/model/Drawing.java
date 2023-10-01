@@ -3,10 +3,9 @@ package g61610.atl.ascii.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class Drawing {
-    private List<Shape> shapes = new ArrayList<>();
+    private final List<Shape> shapes = new ArrayList<>();
     private final int height;
     private final int width;
 
@@ -16,6 +15,12 @@ public class Drawing {
         }
         this.height = height;
         this.width = width;
+    }
+
+    Drawing(Drawing drawing) {
+        this.height = drawing.height;
+        this.width = drawing.width;
+        this.shapes.addAll(drawing.getShapes());
     }
 
     public Drawing() {

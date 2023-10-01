@@ -1,7 +1,7 @@
 package g61610.atl.ascii.model;
 
 public class Circle extends ColoredShape {
-    private Point center;
+    private final Point center;
     private final double radius;
 
     public Circle(Point center, double radius, char color) {

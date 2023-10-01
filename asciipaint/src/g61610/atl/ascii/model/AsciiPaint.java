@@ -26,7 +26,7 @@ public class AsciiPaint {
     }
 
     public Drawing getDrawing() {
-        return this.drawing;
+        return new Drawing(this.drawing);
     }
 
     public List<Shape> getShapes() {
@@ -34,10 +34,16 @@ public class AsciiPaint {
     }
 
     public void moveShape(int index, int x, int y) {
+        if (index < 0 || index > this.drawing.getShapes().size() - 1) {
+            throw new AsciiPaintException("Index of shape to move must be between 0 and " + (this.drawing.getShapes().size() - 1));
+        }
         this.drawing.getShapes().get(index).move(x,y);
     }
 
-    public void changeShapeColor(int index, char newcolor) {
+    public void changeColor(int index, char newcolor) {
+        if (index < 0 || index > this.drawing.getShapes().size() - 1) {
+            throw new AsciiPaintException("Index of shape to change color must be between 0 and " + (this.drawing.getShapes().size() - 1));
+        }
         this.drawing.getShapes().get(index).setColor(newcolor);
     }
 }
