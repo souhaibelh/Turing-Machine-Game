@@ -69,7 +69,20 @@ public class App {
                 List<Shape> totalshapes = board.getShapes();
                 System.out.println("Shapes in the board:\n");
                 for (int i=0; i<totalshapes.size(); i++) {
-                    String shapename = "asd";
+                    String shapename;
+                    switch (totalshapes.get(i)) {
+                        case Circle c:
+                            shapename = "Circle";
+                            break;
+                        case Square s:
+                            shapename = "Square";
+                            break;
+                        case Rectangle r:
+                            shapename = "Rectangle";
+                            break;
+                        default:
+                            shapename = "Unrecognized Shape";
+                    }
                     System.out.println("    " + (i + 1) + ". Shape: " + shapename + ". Color: " + totalshapes.get(i).getColor() + " [index: " + i + " , use this number to move/remove or change the colour of the shape]");
                 }
                 System.out.println();
