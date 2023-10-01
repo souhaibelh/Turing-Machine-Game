@@ -337,3 +337,59 @@ We call the function again with the same list that is now empty, since the list 
     (3.0, 5.0) - FF0000FF
     (2.0, 2.0) - not pinned
     ```
+
+# TD5
+
+### Classes Generiques
+
+1. We get an error: Required type: Integer, provided: Double. This is because the reference type of the object is of type Integer and we are trying to assign a Double to it.
+
+2. It tells us that its rebundant to specify on the object instantiation that we are working with an integer this is because the compiler can guess we are working with an integer when we write Box<Integer>. (We use this all the time when we instantiate Lists as ArrayLists we almost never put the type, for example: List<Integer> listofIntegers = new ArrayList<>()).
+
+### Heritage et generiques
+
+3. No, Box<Integer> isnt a subclass of type of Box<Object>.
+
+4. It says that we must provide a Box<Integer> but that we have given it a Box<Object>.
+
+5. Now the error is in line 6, it says new Integer(42) is deprecated and it will be removed, we also get an error at line 11 because, the same one actually.
+
+### Jokers
+
+6. The error we get is capture of ? is what is required and we provide it with an Integer.
+
+7. Well if we don't specify that the class implements Comparable which means its going to be comparable, then we cant guess the compareTo method, every class that extends Comparable must override the compareTo method inside it, because Comparable is a functional Interface which means it has only one abstract method that must be overriden in the class, so if we know it implements Comparable it means it has a compareTo method, but if we don't specify it implements Comparable then we can't know if it has or no the compareTo method, so the compiler tells us it doesn't know about it. So the error we get is compareTo method not found.
+
+8. The error we get is that java.lang.Number doesn't implement the Comparable interface, if it doesn't implement the Comparable interface then we can't magically call its compareTo method because it might not even have it.
+
+9. An example of a call to the method copy would be:
+
+    ```java
+    List<Number> numberList = new ArrayList<>();
+    List<Integer> integerList = new ArrayList<>();
+    copy(numberList,integerList);
+    ```
+
+10. Let's assume that Point is the parent of ColoredPoint, and that the ColoredPoint only adds a color to the Point, the following code can use the sort method: 
+
+    ```java
+    List<ColoredPoint> coloredPoints = new ArrayList<>();
+    coloredPoints.add(new ColoredPoint(5.0,4.0,blue));
+    coloredPoints.add(new ColoredPoint(6.0,2.0,red));
+    Comparator<Point> pointComparator = new Comparator<Point>() {
+        @Override
+        public int compare(Point o1, Point o2) {
+            if (o1.equals(o2)) {
+                return 0; // If both points are equal we return 0
+            }
+            // If the points are different we compare their coordinates and return an integer that will represent if point o1
+            // is below to the left of point o2 or no, I assumed Points take doubles as coordinates x and y so we must cast to an
+            // int the result of Math.round, Math.round gives us a long! we can safely cast it to a int!
+            return (int) Math.round((o1.getX() - o2.getY()) + (o1.getY() - o2.getY()));
+        }
+    };
+    sort(coloredPoints, pointComparator);
+    ```
+
+
+
