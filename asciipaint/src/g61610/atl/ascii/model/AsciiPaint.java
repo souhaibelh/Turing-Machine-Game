@@ -33,11 +33,23 @@ public class AsciiPaint {
         return this.drawing.getShapes();
     }
 
-    public void moveShape(int index, int x, int y) {
+    public void moveShape(int index, int x, int y) throws AsciiPaintException {
+        validateIndex(index);
         this.drawing.getShapes().get(index).move(x,y);
     }
 
-    public void changeShapeColor(int index, char newcolor) {
+    public void changeColor(int index, char newcolor) throws AsciiPaintException {
+        validateIndex(index);
         this.drawing.getShapes().get(index).setColor(newcolor);
+    }
+
+    private void validateIndex(int index) {
+        if (index < 0 || index > getShapes().size() - 1) {
+            String error_index = "0";
+            if (!getShapes().isEmpty()) {
+                error_index = String.valueOf(getShapes().size() - 1);
+            }
+            throw new AsciiPaintException("Index to access shape (color/move command) must be between 0 and " + error_index);
+        }
     }
 }

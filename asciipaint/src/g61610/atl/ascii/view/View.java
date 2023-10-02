@@ -1,11 +1,11 @@
 package g61610.atl.ascii.view;
 
-import g61610.atl.ascii.model.AsciiPaint;
-import g61610.atl.ascii.model.Point;
-import g61610.atl.ascii.model.Shape;
+import g61610.atl.ascii.model.*;
+
+import java.util.List;
 
 public class View {
-    public static void show(AsciiPaint paint) {
+    public static void displayBoard(AsciiPaint paint) {
         for (int i=0; i<=paint.getDrawing().getWidth(); i++) {
             System.out.print("---");
         }
@@ -27,10 +27,35 @@ public class View {
         System.out.println();
     }
 
+    public static void displayList(List<Shape> shapeList) {
+        if (shapeList.isEmpty()) {
+            System.out.println("\nYour drawing board is empty! Add new shapes first (type commands if you don't know how to)");
+        } else {
+            System.out.println();
+            for (int i=0; i<shapeList.size(); i++) {
+                String shapename;
+                if (shapeList.get(i) instanceof Circle) {
+                    shapename = "Circle";
+                } else if (shapeList.get(i) instanceof Square) {
+                    shapename = "Square";
+                } else {
+                    shapename = "Rectangle";
+                }
+                System.out.println(i + ". Shape: " + shapename + "-> Color: " + shapeList.get(i).getColor());
+            }
+            System.out.println();
+        }
+    }
+
     public static void displayCommands() {
         System.out.println("\nGAME COMMANDS:");
-        System.out.println("\nIMPORTANT*: For a circle, the x and y coordinates are meant to describe the" +
-                " center of the circle, for the rectangle and square they describe\nthe upper left point");
+        System.out.println("""
+
+                IMPORTANT*: For a circle, the x and y coordinates are meant to describe the center of the circle, for the rectangle and square they describe
+                the upper left point""");
+        System.out.println("\nMULTIPLE COMMANDS:");
+        System.out.println("\n    -You can add multiple commands in one line (any command accepted, included but not limited to: show,list,move,color...), separate each command by a coma, for example:");
+        System.out.println("    -add rectangle 15 15 15 15 D, add square 15 15 10 D, move 10 10 10, add circle 15 10 5 D");
         System.out.println("\nADD SHAPE COMMANDS:");
         System.out.println("\n    -add circle command: add circle x y radius color");
         System.out.println("    -add rectangle command: add rectangle x y width height color");
