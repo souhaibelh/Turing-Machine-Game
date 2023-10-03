@@ -8,6 +8,8 @@ public class Drawing {
     private List<Shape> shapes = new ArrayList<>();
     private final int height;
     private final int width;
+    private static final int default_height = 50;
+    private static final int default_width = 50;
 
     public Drawing(int width, int height) {
         if (width <= 0 || height <= 0) {
@@ -23,7 +25,7 @@ public class Drawing {
     }
 
     public Drawing() {
-        this(50,50); // Default constructor with default width and height.
+        this(default_width,default_height); // Default constructor with default width and height.
     }
 
     public void addShape(Shape shape) {

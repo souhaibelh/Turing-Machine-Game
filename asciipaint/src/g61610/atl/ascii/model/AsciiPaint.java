@@ -45,10 +45,7 @@ public class AsciiPaint {
 
     private void validateIndex(int index) {
         if (index < 0 || index > getShapes().size() - 1) {
-            String error_index = "0";
-            if (!getShapes().isEmpty()) {
-                error_index = String.valueOf(getShapes().size() - 1);
-            }
+            String error_index = getShapes().isEmpty() ? "0" : String.valueOf(getShapes().size() - 1);
             throw new AsciiPaintException("Index to access shape (color/move command) must be between 0 and " + error_index);
         }
     }
