@@ -26,7 +26,7 @@ public class AsciiPaint {
     }
 
     public Drawing getDrawing() {
-        return this.drawing;
+        return new Drawing(this.drawing);
     }
 
     public List<Shape> getShapes() {

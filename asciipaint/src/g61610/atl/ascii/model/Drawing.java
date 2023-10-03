@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Drawing {
-    private final List<Shape> shapes = new ArrayList<>();
+    private List<Shape> shapes = new ArrayList<>();
     private final int height;
     private final int width;
 
@@ -15,6 +15,11 @@ public class Drawing {
         }
         this.height = height;
         this.width = width;
+    }
+
+    public Drawing(Drawing drawing) {
+        this(drawing.width, drawing.height);
+        this.shapes = drawing.getShapes();
     }
 
     public Drawing() {

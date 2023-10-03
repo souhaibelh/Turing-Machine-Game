@@ -47,6 +47,17 @@ public class View {
         }
     }
 
+    public static void displayErrorCommands(List<String> errorcommands) {
+        if (errorcommands.isEmpty()) {
+            System.out.println("\nAll commands executed successfully");
+        } else {
+            System.out.println("\nEncountered an issue while attempting to execute the following commands:\n");
+            for (int i=0; i<errorcommands.size(); i++) {
+                System.out.println((i + 1) + ". " + errorcommands.get(i));
+            }
+        }
+    }
+
     public static void displayCommands() {
         System.out.println("\nGAME COMMANDS:");
         System.out.println("""
