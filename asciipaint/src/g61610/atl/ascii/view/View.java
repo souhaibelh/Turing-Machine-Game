@@ -5,6 +5,14 @@ import g61610.atl.ascii.model.*;
 import java.util.List;
 
 public class View {
+
+    /**
+     * This method here displays the board, it adds a line of "-" in the top and the bottom of the board, it iterates
+     * through the board with width and height, creates a point with each width and height combination and calls the method
+     * getShapeAt(Point p) with the created point, if the method returns null it means there isn't any shape, and we only
+     * display 3 spaces, if the shape is not null then we display a space, the shape color (1 character) and another space.
+     * @param paint this is the controller
+     */
     public static void displayBoard(AsciiPaint paint) {
         for (int i=0; i<=paint.getDrawing().getWidth(); i++) {
             System.out.print("---");
@@ -27,6 +35,11 @@ public class View {
         System.out.println();
     }
 
+    /**
+     * This method displays the list of shapes containing all available shapes in our drawing, if the list is empty we say so,
+     * if it isn't empty we display the index of the shape followed by its name and color.
+     * @param shapeList list containing all available shapes in our drawing
+     */
     public static void displayList(List<Shape> shapeList) {
         if (shapeList.isEmpty()) {
             System.out.println("\nYour drawing board is empty! Add new shapes first (type commands if you don't know how to)");
@@ -47,17 +60,26 @@ public class View {
         }
     }
 
-    public static void displayErrorCommands(List<String> errorcommands) {
-        if (errorcommands.isEmpty()) {
+    /**
+     * This method outputs all the commands that the user attempted to add but weren't following the syntax or respecting
+     * the parameters of each command.
+     * @param invalid_commands list containing all the commands that were invalid when the user passed in a commands input
+     */
+    public static void displayInvalidCommands(List<String> invalid_commands) {
+        if (invalid_commands.isEmpty()) {
             System.out.println("\nAll commands executed successfully");
         } else {
             System.out.println("\nEncountered an issue while attempting to execute the following commands:\n");
-            for (int i=0; i<errorcommands.size(); i++) {
-                System.out.println((i + 1) + ". " + errorcommands.get(i));
+            for (int i=0; i<invalid_commands.size(); i++) {
+                System.out.println((i + 1) + ". " + invalid_commands.get(i));
             }
         }
     }
 
+    /**
+     * This method is purely to display the commands the user can use on the drawing board to draw shapes, modify them
+     * or exit the drawing board.
+     */
     public static void displayCommands() {
         System.out.println("\nGAME COMMANDS:");
         System.out.println("""
