@@ -27,7 +27,7 @@ public class Application {
     private void startBoard(Scanner keyboard) {
         System.out.println("\nIntroduce the dimensions of your board in this format: width height or type in default or d for default size");
         String dimensions = keyboard.nextLine();
-        Pattern dimensions_pattrn = Pattern.compile("^(([0-9]+) ([0-9]+)|default|d)$");
+        Pattern dimensions_pattrn = Pattern.compile("^(?: ?)+(?:(([0-9]+) ([0-9]+)|default|d))(?: ?)+$");
         while (!dimensions_pattrn.matcher(dimensions).matches()) {
             System.out.println("\nInvalid format, follow this example: '200 150' (200 width 150 height) or 'default' (default board size) or 'd' (default board size)");
             dimensions = keyboard.nextLine();
@@ -71,13 +71,13 @@ public class Application {
             without caring about how many spaces there is between them, for example we can have 30 spaces between rectangle and integer,
             and it would still be accepted.
          */
-        Pattern rectangle = Pattern.compile("(?: ?)+add +rectangle +([0-9+]+) +([0-9+]+) +([0-9+]+) +([0-9+]+) +([a-zA-Z])(?: ?)+");
+        Pattern rectangle = Pattern.compile("(?: ?)+add +rectangle +(-?[0-9+]+) +(-?[0-9+]+) +([0-9+]+) +([0-9+]+) +([a-zA-Z])(?: ?)+");
 
         /*
             This pattern accepts both square and circles, they both take in the same amount of arguments to instance. It doesn't care
             about how many spaces there is between each parameter.
          */
-        Pattern circle_square = Pattern.compile("(?: ?)+add +(circle|square) +([0-9]+) +([0-9]+) +([0-9]+) +([a-zA-Z])(?: ?)+");
+        Pattern circle_square = Pattern.compile("(?: ?)+add +(circle|square) +(-?[0-9]+) +(-?[0-9]+) +([0-9]+) +([a-zA-Z])(?: ?)+");
 
 
         //  This pattern accepts move command, it doesn't care about the amount of spaces between parameters.
@@ -169,7 +169,7 @@ public class Application {
                 invalid_commands.add(c);
             }
         }
-
+        View.displayBoard(this.paint);
         // We output the list containing all the invalid commands the user introduced
         View.displayInvalidCommands(invalid_commands);
     }

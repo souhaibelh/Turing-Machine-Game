@@ -42,8 +42,8 @@ public class Rectangle extends ColoredShape {
      * @return true or false depending on whether the point is inside or not
      */
     public boolean isInside(Point p) {
-        return p.getX() > this.upperLeft.getX() && p.getX() <= this.upperLeft.getX() + width && (p.getY() < this.upperLeft.getY()
-                && p.getY() >= this.upperLeft.getY() - height);
+        return (p.getX() >= this.upperLeft.getX() && p.getX() < this.upperLeft.getX() + width) && (p.getY() >= this.upperLeft.getY()
+                && p.getY() < this.upperLeft.getY() + height);
     }
 
     /**

@@ -14,25 +14,18 @@ public class View {
      * @param paint this is the controller
      */
     public static void displayBoard(AsciiPaint paint) {
-        for (int i=0; i<=paint.getDrawing().getWidth(); i++) {
-            System.out.print("---");
-        }
-        for (int i=0; i<=paint.getDrawing().getWidth(); i++) {
-            for (int j=0; j<=paint.getDrawing().getHeight(); j++){
-                Point p = new Point(i,j);
-                Shape currentshape = paint.getDrawing().getShapeAt(p);
-                if (currentshape != null) {
-                    System.out.print(" " + currentshape.getColor() + " ");
+        for (int i=0; i<paint.getDrawing().getWidth(); i++) {
+            for (int j=0; j<paint.getDrawing().getHeight(); j++) {
+                Point p = new Point(j,i); // reversed for drawing purposes
+                Shape shape_has_p = paint.getDrawing().getShapeAt(p);
+                if (shape_has_p != null) {
+                    System.out.print(" " + shape_has_p.getColor() + " ");
                 } else {
-                    System.out.print("   ");
+                    System.out.print(" ");
                 }
             }
             System.out.println();
         }
-        for (int i=0; i<=paint.getDrawing().getWidth(); i++) {
-            System.out.print("---");
-        }
-        System.out.println();
     }
 
     /**
@@ -97,7 +90,8 @@ public class View {
         System.out.println("\n    -show command: show <- this command displays the board");
         System.out.println("    -list command: list <- this command shows a ordered list of all the shapes in the board");
         System.out.println("    -color command: color i z <- this command replaces the color of the shape at the index i for the color z");
-        System.out.println("    -move i a b <- this command moves the shape at the index i by an offset of a in the x axis and an offset of b in the y axis");
+        System.out.println("    -move i a b <- this command moves the shape at the index i by an offset of 'a' in the x axis and an offset of 'b' in the y axis (example: move 0 5 5, moves the shape at the index 0" +
+                "in the List of shapes inside ur drawing board (first shape added) by 5 to the right and by 5 down, if we had used move 0 5 -5 we would have moved the shape up)");
         System.out.println("    -exit <- exits the game and brings you back to the first menu\n");
     }
 }

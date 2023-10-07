@@ -87,10 +87,10 @@ public class Drawing {
     }
 
     /**
-     * @return an unmodifiable list containing the current shapes in the drawing board, this is so we never return the
-     * reference of the shapes we have in the board to avoid changing them from outside this class or any malicious changements.
+     * @return a copy of the list containing the current shapes in the drawing board, this is so we never return the
+     * reference of the shapes we have in the board to avoid changing them from outside this class or any malicious changes.
      */
     public List<Shape> getShapes() {
-        return Collections.unmodifiableList(this.shapes);
+        return List.copyOf(this.shapes);
     }
 }

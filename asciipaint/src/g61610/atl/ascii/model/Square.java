@@ -1,7 +1,7 @@
 package g61610.atl.ascii.model;
 
 /**
- * This class here only consists of a constructor, every other method or attribtue we can just use the parent's, since a
+ * This class here only consists of a constructor, every other method or attribute we can just use the parent's, since a
  * square is a rectangle, methods to calculate if a point is inside etc. are the same.
  */
 
