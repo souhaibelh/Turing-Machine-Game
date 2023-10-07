@@ -21,7 +21,7 @@ public class View {
                 if (shape_has_p != null) {
                     System.out.print(" " + shape_has_p.getColor() + " ");
                 } else {
-                    System.out.print(" ");
+                    System.out.print("   ");
                 }
             }
             System.out.println();
