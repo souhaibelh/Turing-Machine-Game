@@ -111,7 +111,7 @@ public class AsciiPaint {
      * is to verify an integer named in this case index is not smaller than 0 and not bigger than the size of the List of
      * shapes that is an attribute to the Drawing instance (in case it is smaller than 0 or bigger than List of shapes we throw
      * a AsciiPaintException)
-     * @param index the index we must verify
+     * @param index the index we must verify.
      */
     private void validateIndex(int index) {
         if (this.drawing.getShapes().isEmpty()) {
