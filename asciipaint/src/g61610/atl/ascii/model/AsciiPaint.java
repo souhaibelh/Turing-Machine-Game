@@ -114,7 +114,9 @@ public class AsciiPaint {
      * @param index the index we must verify
      */
     private void validateIndex(int index) {
-        if (index < 0 || index > getShapes().size() - 1) {
+        if (this.drawing.getShapes().isEmpty()) {
+            throw new AsciiPaintException("The list is empty, add some shapes before trying to modify the color or move one of them");
+        } else if (index < 0 || index > getShapes().size() - 1) {
             String error_index = getShapes().isEmpty() ? "0" : String.valueOf(getShapes().size() - 1);
             throw new AsciiPaintException("Index to access shape (color/move command) must be between 0 and " + error_index);
         }

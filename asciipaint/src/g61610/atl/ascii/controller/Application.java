@@ -1,6 +1,7 @@
 package g61610.atl.ascii.controller;
 
 import g61610.atl.ascii.model.AsciiPaint;
+import g61610.atl.ascii.model.AsciiPaintException;
 import g61610.atl.ascii.view.View;
 
 import java.util.ArrayList;
@@ -152,13 +153,21 @@ public class Application {
                 int index = Integer.parseInt(move_matcher.group(1));
                 int offset_x = Integer.parseInt(move_matcher.group(2));
                 int offset_y = Integer.parseInt(move_matcher.group(3));
-                this.paint.moveShape(index,offset_x,offset_y);
+                try {
+                    this.paint.moveShape(index,offset_x,offset_y);
+                } catch (AsciiPaintException e) {
+                    System.out.println(e.getMessage());
+                }
 
             } else if (color_matcher.matches()) {
 
                 int index = Integer.parseInt(color_matcher.group(1));
                 char new_color = color_matcher.group(2).charAt(0);
-                this.paint.changeColor(index,new_color);
+                try {
+                    this.paint.changeColor(index,new_color);
+                } catch (AsciiPaintException e) {
+                    System.out.println(e.getMessage());
+                }
 
             } else {
                 /*
