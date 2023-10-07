@@ -129,7 +129,12 @@ public class Application {
                 double height = Double.parseDouble(rectangle_matcher.group(3));
                 double width = Double.parseDouble(rectangle_matcher.group(4));
                 char shape_color = rectangle_matcher.group(5).charAt(0);
-                this.paint.newRectangle(x,y,width,height,shape_color);
+                try {
+                    this.paint.newRectangle(x,y,width,height,shape_color);
+                } catch (AsciiPaintException e) {
+                    System.out.println(e.getMessage());
+                }
+                View.displayBoard(this.paint);
 
             } else if (circle_square_matcher.matches()) {
 
@@ -142,11 +147,16 @@ public class Application {
                     calls either the circle add method or the square add method based on the first group of the command which
                     indicates if we are adding a square or a circle.
                  */
-                if (circle_square_matcher.group(1).equals("square")) {
-                    this.paint.newSquare(x, y, radius_side, shape_color);
-                } else {
-                    this.paint.newCircle(x, y, radius_side, shape_color);
+                try {
+                    if (circle_square_matcher.group(1).equals("square")) {
+                        this.paint.newSquare(x,y,radius_side,shape_color);
+                    } else {
+                        this.paint.newCircle(x, y, radius_side, shape_color);
+                    }
+                } catch (AsciiPaintException e) {
+                    System.out.println(e.getMessage());
                 }
+                View.displayBoard(this.paint);
 
             } else if (move_matcher.matches()) {
 
@@ -158,6 +168,7 @@ public class Application {
                 } catch (AsciiPaintException e) {
                     System.out.println(e.getMessage());
                 }
+                View.displayBoard(this.paint);
 
             } else if (color_matcher.matches()) {
 
@@ -168,6 +179,7 @@ public class Application {
                 } catch (AsciiPaintException e) {
                     System.out.println(e.getMessage());
                 }
+                View.displayBoard(this.paint);
 
             } else {
                 /*
@@ -178,7 +190,7 @@ public class Application {
                 invalid_commands.add(c);
             }
         }
-        View.displayBoard(this.paint);
+
         // We output the list containing all the invalid commands the user introduced
         View.displayInvalidCommands(invalid_commands);
     }
