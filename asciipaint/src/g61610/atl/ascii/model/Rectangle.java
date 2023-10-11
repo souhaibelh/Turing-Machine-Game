@@ -42,7 +42,9 @@ public class Rectangle extends ColoredShape {
      * @return true or false depending on whether the point is inside or not
      */
     public boolean isInside(Point p) {
-        return (p.getX() >= this.upperLeft.getX() && p.getX() < this.upperLeft.getX() + width) && (p.getY() >= this.upperLeft.getY()
+        return (p.getX() >= upperLeft.getX()
+                && p.getX() < upperLeft.getX() + width)
+                && (p.getY() >= upperLeft.getY()
                 && p.getY() < this.upperLeft.getY() + height);
     }
 
@@ -53,6 +55,6 @@ public class Rectangle extends ColoredShape {
      * @param dy the y-axis offset
      */
     public void move(double dx, double dy) {
-        this.upperLeft.move(dx,dy);
+        upperLeft.move(dx,dy);
     }
 }

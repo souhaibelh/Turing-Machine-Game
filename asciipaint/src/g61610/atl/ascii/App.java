@@ -9,6 +9,14 @@ import g61610.atl.ascii.controller.Application;
 
 public class App {
     public static void main(String[] args) {
+
+        /*
+         new model
+         new view
+         new app (model, view)
+         start.
+         */
+
         new Application().start();
     }
 }

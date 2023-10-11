@@ -52,7 +52,7 @@ public class Drawing {
      * @param shape shape to add to the board
      */
     public void addShape(Shape shape) {
-        this.shapes.add(shape);
+        shapes.add(shape);
     }
 
     /**
@@ -64,9 +64,9 @@ public class Drawing {
      * @return the last added shape that contains the Point p
      */
     public Shape getShapeAt(Point p) {
-        for (int i=this.shapes.size() - 1; i>=0; i--) {
-            if (this.shapes.get(i).isInside(p)) {
-                return this.shapes.get(i);
+        for (int i=shapes.size() - 1; i>=0; i--) {
+            if (shapes.get(i).isInside(p)) {
+                return shapes.get(i);
             }
         }
         return null;
@@ -76,14 +76,14 @@ public class Drawing {
      * @return the height of the drawing board
      */
     public int getHeight() {
-        return this.height;
+        return height;
     }
 
     /**
      * @return the width of the drawing board
      */
     public int getWidth() {
-        return this.width;
+        return width;
     }
 
     /**
@@ -91,6 +91,6 @@ public class Drawing {
      * reference of the shapes we have in the board to avoid changing them from outside this class or any malicious changes.
      */
     public List<Shape> getShapes() {
-        return List.copyOf(this.shapes);
+        return List.copyOf(shapes);
     }
 }

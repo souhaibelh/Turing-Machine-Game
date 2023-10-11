@@ -21,7 +21,7 @@ public class Circle extends ColoredShape {
         super(color);
         // The radius of a circle cannot be smaller than 0 nor 0 (if it's 0 then it's a point).
         if (radius <= 0) {
-            throw new IllegalArgumentException("A circles radius must be greater than 0");
+            throw new IllegalArgumentException("A circles radius must be greater than 0: "+radius);
         }
         this.center = new Point(center);
         this.radius = radius;
@@ -41,7 +41,9 @@ public class Circle extends ColoredShape {
             If the radius is smaller than 4 we consider the radius border to be also part of the point, if it is bigger than 4
             we don't.
          */
-        return radius < 4 ? p.distanceTo(this.center) <= this.radius : p.distanceTo(this.center) < this.radius;
+
+        // simple.
+        return radius < 4 ? p.distanceTo(center) <= radius : p.distanceTo(center) < radius;
     }
 
     /**
@@ -50,6 +52,6 @@ public class Circle extends ColoredShape {
      * @param dy the y-axis offset
      */
     public void move(double dx, double dy) {
-        this.center.move(dx,dy);
+        center.move(dx,dy);
     }
 }

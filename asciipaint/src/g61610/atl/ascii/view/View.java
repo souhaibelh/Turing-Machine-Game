@@ -13,7 +13,7 @@ public class View {
      * display 3 spaces, if the shape is not null then we display a space, the shape color (1 character) and another space.
      * @param paint this is the controller
      */
-    public static void displayBoard(AsciiPaint paint) {
+    public static void displayBoard(AsciiPaint paint) { // pas de static !
         for (int i=0; i<paint.getDrawing().getWidth(); i++) {
             for (int j=0; j<paint.getDrawing().getHeight(); j++) {
                 Point p = new Point(j,i); // reversed for drawing purposes

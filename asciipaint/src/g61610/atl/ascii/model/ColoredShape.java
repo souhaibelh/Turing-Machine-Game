@@ -16,7 +16,7 @@ public abstract class ColoredShape implements Shape {
      * @return the character that represents the color of a shape
      */
     public char getColor() {
-        return this.color;
+        return color;
     }
 
     /**

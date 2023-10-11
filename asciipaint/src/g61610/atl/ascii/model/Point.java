@@ -3,6 +3,8 @@ package g61610.atl.ascii.model;
 /**
  * This class defines what a Point is, a Point is an object with 2 attributes, representing the x and y axis coordinate
  * respectively, using "double" as type.
+ *
+ * @author souhaib
  */
 public class Point {
     private double x;
@@ -46,7 +48,8 @@ public class Point {
      * @return a double representing the distance between these 2 points
      */
     public double distanceTo(Point other) {
-        return Math.sqrt(((other.x - this.x) * (other.x - this.x)) + ((other.y - this.y) * (other.y - this.y)));
+        return Math.sqrt(((other.x - this.x) * (other.x - this.x))
+                + ((other.y - this.y) * (other.y - this.y)));
     }
 
     /**
@@ -54,7 +57,7 @@ public class Point {
      * @return x coordinate of the Point that calls the method
      */
     public double getX() {
-        return this.x;
+        return x;
     }
 
     /**
@@ -62,6 +65,6 @@ public class Point {
      * @return y coordinate of the Point that calls the method
      */
     public double getY() {
-        return this.y;
+        return y;
     }
 }

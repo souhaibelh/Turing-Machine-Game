@@ -33,6 +33,7 @@ public class AsciiPaint {
      * @param color character that will represent the color of the circle
      */
     public void newCircle(int x, int y, double radius, char color) {
+        // tester les valeurs et lancer une exception.
         this.drawing.addShape(new Circle(new Point(x,y),radius,color));
     }
 
