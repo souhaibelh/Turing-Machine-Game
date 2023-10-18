@@ -1,7 +1,6 @@
 package g61610.atl.ascii.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public class Drawing {
      */
     public Drawing(Drawing drawing) {
         this(drawing.width, drawing.height);
-        this.shapes = drawing.getShapes();
+        shapes = drawing.getShapes();
     }
 
     /**

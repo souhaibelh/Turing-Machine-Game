@@ -13,7 +13,7 @@ public class View {
      * display 3 spaces, if the shape is not null then we display a space, the shape color (1 character) and another space.
      * @param paint this is the controller
      */
-    public static void displayBoard(AsciiPaint paint) { // pas de static !
+    public void displayBoard(AsciiPaint paint) { // pas de static !
         for (int i=0; i<paint.getDrawing().getWidth(); i++) {
             for (int j=0; j<paint.getDrawing().getHeight(); j++) {
                 Point p = new Point(j,i); // reversed for drawing purposes
@@ -33,7 +33,7 @@ public class View {
      * if it isn't empty we display the index of the shape followed by its name and color.
      * @param shapeList list containing all available shapes in our drawing
      */
-    public static void displayList(List<Shape> shapeList) {
+    public void displayList(List<Shape> shapeList) {
         if (shapeList.isEmpty()) {
             System.out.println("\nYour drawing board is empty! Add new shapes first (type commands if you don't know how to)");
         } else {
@@ -58,7 +58,7 @@ public class View {
      * the parameters of each command.
      * @param invalid_commands list containing all the commands that were invalid when the user passed in a commands input
      */
-    public static void displayInvalidCommands(List<String> invalid_commands) {
+    public void displayInvalidCommands(List<String> invalid_commands) {
         if (invalid_commands.isEmpty()) {
             System.out.println("\nAll commands executed successfully");
         } else {
@@ -73,7 +73,7 @@ public class View {
      * This method is purely to display the commands the user can use on the drawing board to draw shapes, modify them
      * or exit the drawing board.
      */
-    public static void displayCommands() {
+    public void displayCommands() {
         System.out.println("\nGAME COMMANDS:");
         System.out.println("""
 

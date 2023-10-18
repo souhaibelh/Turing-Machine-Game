@@ -12,7 +12,7 @@ public class AsciiPaint {
      * Constructor that initializes the drawing board to its default state.
      */
     public AsciiPaint() {
-        this.drawing = new Drawing();
+        drawing = new Drawing();
     }
 
     /**
@@ -21,7 +21,7 @@ public class AsciiPaint {
      * @param height height of the drawing board
      */
     public AsciiPaint(int width, int height) {
-        this.drawing = new Drawing(width,height);
+        drawing = new Drawing(width,height);
     }
 
     /**
@@ -33,8 +33,11 @@ public class AsciiPaint {
      * @param color character that will represent the color of the circle
      */
     public void newCircle(int x, int y, double radius, char color) {
-        // tester les valeurs et lancer une exception.
-        this.drawing.addShape(new Circle(new Point(x,y),radius,color));
+        // The radius of a circle cannot be smaller than 0 nor 0 (if it's 0 then it's a point).
+        if (radius <= 0) {
+            throw new IllegalArgumentException("A circles radius must be greater than 0: "+radius);
+        }
+        drawing.addShape(new Circle(new Point(x,y),radius,color));
     }
 
     /**
@@ -47,7 +50,11 @@ public class AsciiPaint {
      * @param color character that will represent the color of the rectangle
      */
     public void newRectangle(int x, int y, double width, double height, char color) {
-        this.drawing.addShape(new Rectangle(new Point(x,y),width,height,color));
+        // If the width is smaller than 0 or the height is smaller than 0 we throw an error
+        if (width <= 0 || height <= 0) {
+            throw new AsciiPaintException("Rectangles width and height must be greater than 0");
+        }
+        drawing.addShape(new Rectangle(new Point(x,y),width,height,color));
     }
 
     /**
@@ -59,21 +66,25 @@ public class AsciiPaint {
      * @param color character that will represent the color of the rectangle
      */
     public void newSquare(int x, int y, double side, char color) {
-        this.drawing.addShape(new Square(new Point(x,y),side,color));
+        // If the side is smaller or equal to 0 we throw an error
+        if (side <= 0) {
+            throw new AsciiPaintException("Squares width and height must be greater than 0");
+        }
+        drawing.addShape(new Square(new Point(x,y),side,color));
     }
 
     /**
      * @return a new drawing created with the copy constructor inside the Drawing class
      */
     public Drawing getDrawing() {
-        return new Drawing(this.drawing);
+        return new Drawing(drawing);
     }
 
     /**
      * @return an unmodifiable List of the shapes available in the Drawing instance
      */
     public List<Shape> getShapes() {
-        return this.drawing.getShapes();
+        return drawing.getShapes();
     }
 
     /**
@@ -89,7 +100,7 @@ public class AsciiPaint {
      */
     public void moveShape(int index, int x, int y) throws AsciiPaintException {
         validateIndex(index);
-        this.drawing.getShapes().get(index).move(x,y);
+        drawing.getShapes().get(index).move(x,y);
     }
 
     /**
@@ -104,7 +115,7 @@ public class AsciiPaint {
      */
     public void changeColor(int index, char new_color) throws AsciiPaintException {
         validateIndex(index);
-        this.drawing.getShapes().get(index).setColor(new_color);
+        drawing.getShapes().get(index).setColor(new_color);
     }
 
     /**
@@ -115,7 +126,7 @@ public class AsciiPaint {
      * @param index the index we must verify.
      */
     private void validateIndex(int index) {
-        if (this.drawing.getShapes().isEmpty()) {
+        if (drawing.getShapes().isEmpty()) {
             throw new AsciiPaintException("The list is empty, add some shapes before trying to modify the color or move one of them");
         } else if (index < 0 || index > getShapes().size() - 1) {
             String error_index = getShapes().isEmpty() ? "0" : String.valueOf(getShapes().size() - 1);

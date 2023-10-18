@@ -45,7 +45,7 @@ public class Rectangle extends ColoredShape {
         return (p.getX() >= upperLeft.getX()
                 && p.getX() < upperLeft.getX() + width)
                 && (p.getY() >= upperLeft.getY()
-                && p.getY() < this.upperLeft.getY() + height);
+                && p.getY() < upperLeft.getY() + height);
     }
 
     /**

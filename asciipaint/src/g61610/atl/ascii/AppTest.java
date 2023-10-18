@@ -8,6 +8,7 @@ import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
+
     /**
      * This securityTests method will test if the references of the points used to create the shapes are different (defensive copy), will also test that the getDrawing method inside AsciiPaint
      * returns a different drawing with the same characteristics as the one the AsciiPaint has as an attribute. Finally, it also tests that the getShapes() method gives an unmodifiable copy of the
