@@ -67,7 +67,7 @@ public class AsciiPaint {
     }
 
     /**
-     * Method that adds a new square, it adds teh square shape in the List of shapes that serves as an attribute inside
+     * Method that adds a new square, it adds the square shape in the List of shapes that serves as an attribute inside
      * the Drawing instance.
      * @param x x-coordinate of the upperLeft point of the square
      * @param y y-coordinate of the upperLeft point of the square
@@ -84,12 +84,26 @@ public class AsciiPaint {
         commandManager.newCommand(command);
     }
 
+    /**
+     * Method that adds a new line, it adds the line shape in the list of shapes that serves as an attribute inside
+     * the Drawing instance.
+     * @param x1 x coordinate of starting point of line
+     * @param y1 y coordinate of starting point of line
+     * @param x2 x coordinate of ending point of line
+     * @param y2 y coordinate of ending point of line
+     * @param color color of the line
+     */
     public void newLine(int x1, int y1, int x2, int y2, char color) {
         Line line = new Line(new Point(x1,y1),new Point(x2,y2),color);
         Command command = new AddShapeCommand(drawing, line);
         commandManager.newCommand(command);
     }
 
+    /**
+     * Method that groups multiple shapes into one Group and assigns to them a color
+     * @param color color to give to all the shapes in the group
+     * @param index indexes of the shapes in the drawing
+     */
     public void group(char color, int... index) {
         Shape[] shapes = new Shape[index.length];
         Arrays.sort(index);
@@ -103,6 +117,10 @@ public class AsciiPaint {
         commandManager.newCommand(group);
     }
 
+    /**
+     * Method that ungroups a group, making all the shapes that formed the group be independent once again
+     * @param group_index index of the group to ungroup
+     */
     public void ungroup(int group_index) {
         validateIndex(group_index);
         if (!(drawing.getShapes().get(group_index) instanceof Group)) {
@@ -112,10 +130,16 @@ public class AsciiPaint {
         commandManager.newCommand(ungroup);
     }
 
+    /**
+     * Method that undoes the previous command
+     */
     public void undo() {
         commandManager.undo();
     }
 
+    /**
+     * Method that repeats the previous command once again
+     */
     public void redo() {
         commandManager.redo();
     }
@@ -168,6 +192,16 @@ public class AsciiPaint {
     }
 
     /**
+     * Method that removes a shape from the drawing
+     * @param index index of the shape in the list that needs to be removed
+     */
+    public void removeShape(int index) {
+        validateIndex(index);
+        Command command = new RemoveShapeCommand(drawing.getShapes().get(index),drawing);
+        commandManager.newCommand(command);
+    }
+
+    /**
      * This method here verifies an index, it is used by the changeColor method and the moveShape method, and it's purpose
      * is to verify an integer named in this case index is not smaller than 0 and not bigger than the size of the List of
      * shapes that is an attribute to the Drawing instance (in case it is smaller than 0 or bigger than List of shapes we throw
@@ -176,10 +210,10 @@ public class AsciiPaint {
      */
     private void validateIndex(int index) {
         if (drawing.getShapes().isEmpty()) {
-            throw new AsciiPaintException("The list is empty, add some shapes before trying to modify the color or move one of them");
+            throw new AsciiPaintException("The list is empty, add some shapes before attempting to manipulate them");
         } else if (index < 0 || index > getShapes().size() - 1) {
             String error_index = getShapes().isEmpty() ? "0" : String.valueOf(getShapes().size() - 1);
-            throw new AsciiPaintException("Index to access shape (color/move/group command) must be between 0 and " + error_index);
+            throw new AsciiPaintException("Index to access shape (color/move/group... commands) must be between 0 and " + error_index);
         }
     }
 }

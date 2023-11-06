@@ -78,12 +78,17 @@ public class View {
         System.out.println("\n    -add circle command: add circle x y radius color");
         System.out.println("    -add rectangle command: add rectangle x y width height color");
         System.out.println("    -add square command: add square x y side color");
+        System.out.println("    -add line command: add line x1 y1 x2 y2 color");
         System.out.println("\nOTHER COMMANDS:");
         System.out.println("\n    -show command: show <- this command displays the board");
         System.out.println("    -list command: list <- this command shows a ordered list of all the shapes in the board");
         System.out.println("    -color command: color i z <- this command replaces the color of the shape at the index i for the color z");
         System.out.println("    -move i a b <- this command moves the shape at the index i by an offset of 'a' in the x axis and an offset of 'b' in the y axis (example: move 0 5 5, moves the shape at the index 0" +
                 "in the List of shapes inside ur drawing board (first shape added) by 5 to the right and by 5 down, if we had used move 0 5 -5 we would have moved the shape up)");
-        System.out.println("    -exit <- exits the game and brings you back to the first menu\n");
+        System.out.println("    -group i1 i2 i3... <- groups the shapes i1,i2,i3... so we can move them or change their color at the same time");
+        System.out.println("    -ungroup i <- ungroups these shapes, they become independent once again instead of being in a group");
+        System.out.println("    -redo <- redoes the last command");
+        System.out.println("    -undo <- undoes the last command");
+        System.out.println("    -exit <- exit the application\n");
     }
 }

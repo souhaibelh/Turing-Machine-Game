@@ -4,9 +4,7 @@ import g61610.atl.ascii.model.AsciiPaint;
 import g61610.atl.ascii.model.AsciiPaintException;
 import g61610.atl.ascii.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -107,6 +105,10 @@ public class Application {
         }
     }
 
+    /**
+     * Method that groups shapes
+     * @param groupMatcher matcher that contains all information of the shapes to group
+     */
     private void groupShapes(Matcher groupMatcher) {
         char color = groupMatcher.group(1).charAt(0);
         String[] indexes_string = groupMatcher.group(2).split(" ");
@@ -121,8 +123,36 @@ public class Application {
         }
     }
 
+    /**
+     * Method that ungroups shapes
+     * @param ungroupMatcher matcher that contains all information of the group to ungroup
+     */
     private void ungroupShapes(Matcher ungroupMatcher) {
-        paint.ungroup(Integer.parseInt(ungroupMatcher.group(1)));
+        try {
+            paint.ungroup(Integer.parseInt(ungroupMatcher.group(1)));
+        } catch (AsciiPaintException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Method that deletes shapes
+     * @param deleteMatcher matcher that contains the indexes of all the shapes to delete
+     */
+    private void deleteShapes(Matcher deleteMatcher) {
+        String[] indexes = deleteMatcher.group(1).split(" ");
+        List<Integer> indexes_int = new ArrayList<>();
+        for (String s : indexes) {
+            indexes_int.add(Integer.parseInt(s));
+        }
+        indexes_int.sort((o1, o2) -> o2 - o1);
+        for (int index : indexes_int) {
+            try {
+                paint.removeShape(index);
+            } catch (AsciiPaintException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     /**
@@ -146,10 +176,15 @@ public class Application {
         Pattern group = Pattern.compile("(?: ?)+group +([a-zA-Z]) +((?:[0-9]+ )+)(?: ?)+");
         Pattern ungroup = Pattern.compile("(?: ?)+ungroup +([0-9]+)(?: ?)+");
         Pattern line = Pattern.compile("(?: ?)+add +line +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+) +([a-zA-Z])(?: ?)+");
+        Pattern delete = Pattern.compile("(?: ?)+delete +((?:[0-9]+ )+)(?: ?)+");
 
         List<String> invalid_commands = new ArrayList<>();
         boolean displayBoard = false;
         for (String c : commands_array) {
+            if ((c.contains("delete") || c.contains("group")) && c.charAt(c.length() - 1) != ' ') {
+                c = c + " ";
+            }
+
             Matcher circle_square_matcher = circle_square.matcher(c);
             Matcher rectangle_matcher = rectangle.matcher(c);
             Matcher move_matcher = move.matcher(c);
@@ -157,19 +192,20 @@ public class Application {
             Matcher group_matcher = group.matcher(c);
             Matcher ungroup_matcher = ungroup.matcher(c);
             Matcher line_matcher = line.matcher(c);
+            Matcher delete_matcher = delete.matcher(c);
 
-            if (c.contains("exit")) {
+            if (c.matches("(?: ?)+exit(?: ?)+")) {
                 this.drawing_over = true;
-            } else if (c.contains("list")) {
+            } else if (c.matches("(?: ?)+list(?: ?)+")) {
                 view.displayList(this.paint.getShapes());
-            } else if (c.contains("show")) {
+            } else if (c.matches("(?: ?)+show(?: ?)+")) {
                 view.displayBoard(this.paint);
-            } else if (c.contains("commands")) {
+            } else if (c.matches("(?: ?)+commands(?: ?)+")) {
                 view.displayCommands();
-            } else if (c.contains("undo")) {
+            } else if (c.matches("(?: ?)+undo(?: ?)+")) {
                 paint.undo();
                 displayBoard = true;
-            } else if (c.contains("redo")) {
+            } else if (c.matches("(?: ?)+redo(?: ?)+")) {
                 paint.redo();
                 displayBoard = true;
             } else if (rectangle_matcher.matches()) {
@@ -192,6 +228,9 @@ public class Application {
                 displayBoard = true;
             } else if (ungroup_matcher.matches()) {
                 ungroupShapes(ungroup_matcher);
+                displayBoard = true;
+            } else if (delete_matcher.matches()) {
+                deleteShapes(delete_matcher);
                 displayBoard = true;
             } else {
                 invalid_commands.add(c);

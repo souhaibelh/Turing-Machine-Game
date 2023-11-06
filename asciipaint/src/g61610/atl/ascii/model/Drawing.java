@@ -54,6 +54,10 @@ public class Drawing {
         shapes.add(shape);
     }
 
+    /**
+     * Method that removes a shape from the list, basically removes a shape from the board
+     * @param shape shape to remove from the board
+     */
     protected void removeShape(Shape shape) {
         shapes.remove(shape);
     }

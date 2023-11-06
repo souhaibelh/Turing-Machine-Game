@@ -11,7 +11,7 @@ public class Circle extends ColoredShape {
     /**
      * This is the circle's constructor, it takes in the center point, the length of the radius and a single character
      * describing the color of the Circle, it calls the parent's constructor (ColoredShape) with the color of the Circle
-     * as argument and then assigns the Point passed in as a argument to be the center of the Circle, and the double representing
+     * as argument and then assigns the Point passed in as an argument to be the center of the Circle, and the double representing
      * the radius as the radius of the circle.
      * @param center the center of the Circle
      * @param radius the radius of the Circle
