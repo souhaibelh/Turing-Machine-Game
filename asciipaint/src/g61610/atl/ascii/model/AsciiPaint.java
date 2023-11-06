@@ -1,5 +1,8 @@
 package g61610.atl.ascii.model;
 
+import g61610.atl.ascii.util.CommandManager;
+
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -7,11 +10,13 @@ import java.util.List;
  */
 public class AsciiPaint {
     private final Drawing drawing;
+    private final CommandManager commandManager = new CommandManager();
 
     /**
      * Constructor that initializes the drawing board to its default state.
      */
     public AsciiPaint() {
+
         drawing = new Drawing();
     }
 
@@ -37,7 +42,9 @@ public class AsciiPaint {
         if (radius <= 0) {
             throw new IllegalArgumentException("A circles radius must be greater than 0: "+radius);
         }
-        drawing.addShape(new Circle(new Point(x,y),radius,color));
+        Circle circle = new Circle(new Point(x,y),radius,color);
+        Command command = new AddShapeCommand(drawing,circle);
+        commandManager.newCommand(command);
     }
 
     /**
@@ -54,7 +61,9 @@ public class AsciiPaint {
         if (width <= 0 || height <= 0) {
             throw new AsciiPaintException("Rectangles width and height must be greater than 0");
         }
-        drawing.addShape(new Rectangle(new Point(x,y),width,height,color));
+        Rectangle rectangle = new Rectangle(new Point(x,y),width,height,color);
+        Command command = new AddShapeCommand(drawing,rectangle);
+        commandManager.newCommand(command);
     }
 
     /**
@@ -70,7 +79,45 @@ public class AsciiPaint {
         if (side <= 0) {
             throw new AsciiPaintException("Squares width and height must be greater than 0");
         }
-        drawing.addShape(new Square(new Point(x,y),side,color));
+        Square square = new Square(new Point(x,y),side,color);
+        Command command = new AddShapeCommand(drawing,square);
+        commandManager.newCommand(command);
+    }
+
+    public void newLine(int x1, int y1, int x2, int y2, char color) {
+        Line line = new Line(new Point(x1,y1),new Point(x2,y2),color);
+        Command command = new AddShapeCommand(drawing, line);
+        commandManager.newCommand(command);
+    }
+
+    public void group(char color, int... index) {
+        Shape[] shapes = new Shape[index.length];
+        Arrays.sort(index);
+        for (int id : index) {
+            validateIndex(id);
+        }
+        for (int i=0; i<index.length; i++) {
+            shapes[i] = drawing.getShapes().get(index[i]);
+        }
+        Command group = new GroupCommand(color, drawing, shapes);
+        commandManager.newCommand(group);
+    }
+
+    public void ungroup(int group_index) {
+        validateIndex(group_index);
+        if (!(drawing.getShapes().get(group_index) instanceof Group)) {
+            throw new AsciiPaintException("Cannot ungroup a non Group shape");
+        }
+        Command ungroup = new UngroupCommand(drawing,(Group) drawing.getShapes().get(group_index));
+        commandManager.newCommand(ungroup);
+    }
+
+    public void undo() {
+        commandManager.undo();
+    }
+
+    public void redo() {
+        commandManager.redo();
     }
 
     /**
@@ -100,7 +147,8 @@ public class AsciiPaint {
      */
     public void moveShape(int index, int x, int y) throws AsciiPaintException {
         validateIndex(index);
-        drawing.getShapes().get(index).move(x,y);
+        Command command = new MoveShapeCommand(drawing.getShapes().get(index),x,y);
+        commandManager.newCommand(command);
     }
 
     /**
@@ -115,7 +163,8 @@ public class AsciiPaint {
      */
     public void changeColor(int index, char new_color) throws AsciiPaintException {
         validateIndex(index);
-        drawing.getShapes().get(index).setColor(new_color);
+        Command command = new ChangeColorCommand(drawing.getShapes().get(index),new_color);
+        commandManager.newCommand(command);
     }
 
     /**
@@ -130,7 +179,7 @@ public class AsciiPaint {
             throw new AsciiPaintException("The list is empty, add some shapes before trying to modify the color or move one of them");
         } else if (index < 0 || index > getShapes().size() - 1) {
             String error_index = getShapes().isEmpty() ? "0" : String.valueOf(getShapes().size() - 1);
-            throw new AsciiPaintException("Index to access shape (color/move command) must be between 0 and " + error_index);
+            throw new AsciiPaintException("Index to access shape (color/move/group command) must be between 0 and " + error_index);
         }
     }
 }

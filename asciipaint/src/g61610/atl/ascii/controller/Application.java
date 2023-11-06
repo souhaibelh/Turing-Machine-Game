@@ -57,12 +57,23 @@ public class Application {
         try {
             if (circle_square_matcher.group(1).equals("square")) {
                 this.paint.newSquare(x,y,radius_side,shape_color);
+                System.out.println("squareadded");
             } else {
                 this.paint.newCircle(x, y, radius_side, shape_color);
+                System.out.println("circleadded");
             }
         } catch (AsciiPaintException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private void addLine(Matcher lineMatcher) {
+        int x1 = Integer.parseInt(lineMatcher.group(1));
+        int y1 = Integer.parseInt(lineMatcher.group(2));
+        int x2 = Integer.parseInt(lineMatcher.group(3));
+        int y2 = Integer.parseInt(lineMatcher.group(4));
+        char color = lineMatcher.group(5).charAt(0);
+        paint.newLine(x1,y1,x2,y2,color);
     }
 
     /**
@@ -96,6 +107,24 @@ public class Application {
         }
     }
 
+    private void groupShapes(Matcher groupMatcher) {
+        char color = groupMatcher.group(1).charAt(0);
+        String[] indexes_string = groupMatcher.group(2).split(" ");
+        int[] indexes = new int[indexes_string.length];
+        for (int i=0; i<indexes.length; i++) {
+            indexes[i] = Integer.parseInt(indexes_string[i]);
+        }
+        try {
+            this.paint.group(color,indexes);
+        } catch (AsciiPaintException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void ungroupShapes(Matcher ungroupMatcher) {
+        paint.ungroup(Integer.parseInt(ungroupMatcher.group(1)));
+    }
+
     /**
      * We accept one or multiple commands from the user, if at least one of the commands introduced is valid we loop
      * through the commands, we second check each command with a more precise Pattern, and we perform each one of them,
@@ -114,6 +143,9 @@ public class Application {
         Pattern circle_square = Pattern.compile("(?: ?)+add +(circle|square) +(-?[0-9]+) +(-?[0-9]+) +([0-9]+) +([a-zA-Z])(?: ?)+");
         Pattern move = Pattern.compile("(?: ?)+move +([0-9]+) +(-?[0-9]+) +(-?[0-9]+)(?: ?)+");
         Pattern color = Pattern.compile("(?: ?)+color +([0-9]+) +([a-zA-Z])(?: ?)+");
+        Pattern group = Pattern.compile("(?: ?)+group +([a-zA-Z]) +((?:[0-9]+ )+)(?: ?)+");
+        Pattern ungroup = Pattern.compile("(?: ?)+ungroup +([0-9]+)(?: ?)+");
+        Pattern line = Pattern.compile("(?: ?)+add +line +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+) +([a-zA-Z])(?: ?)+");
 
         List<String> invalid_commands = new ArrayList<>();
         boolean displayBoard = false;
@@ -122,6 +154,9 @@ public class Application {
             Matcher rectangle_matcher = rectangle.matcher(c);
             Matcher move_matcher = move.matcher(c);
             Matcher color_matcher = color.matcher(c);
+            Matcher group_matcher = group.matcher(c);
+            Matcher ungroup_matcher = ungroup.matcher(c);
+            Matcher line_matcher = line.matcher(c);
 
             if (c.contains("exit")) {
                 this.drawing_over = true;
@@ -131,17 +166,32 @@ public class Application {
                 view.displayBoard(this.paint);
             } else if (c.contains("commands")) {
                 view.displayCommands();
+            } else if (c.contains("undo")) {
+                paint.undo();
+                displayBoard = true;
+            } else if (c.contains("redo")) {
+                paint.redo();
+                displayBoard = true;
             } else if (rectangle_matcher.matches()) {
                 addRectangle(rectangle_matcher);
                 displayBoard = true;
             } else if (circle_square_matcher.matches()) {
                 addCircleSquare(circle_square_matcher);
                 displayBoard = true;
+            } else if (line_matcher.matches()) {
+                addLine(line_matcher);
+                displayBoard = true;
             } else if (move_matcher.matches()) {
                 moveShape(move_matcher);
                 displayBoard = true;
             } else if (color_matcher.matches()) {
                 changeColor(color_matcher);
+                displayBoard = true;
+            } else if (group_matcher.matches()) {
+                groupShapes(group_matcher);
+                displayBoard = true;
+            } else if (ungroup_matcher.matches()) {
+                ungroupShapes(ungroup_matcher);
                 displayBoard = true;
             } else {
                 invalid_commands.add(c);

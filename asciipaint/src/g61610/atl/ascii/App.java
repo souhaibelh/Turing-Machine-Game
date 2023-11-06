@@ -14,11 +14,13 @@ import java.util.regex.Pattern;
  */
 public class App {
     public static void main(String[] args) {
+
         View view = new View();
         Scanner keyboard = new Scanner(System.in);
         String paint_dimensions = keyboard.nextLine();
         Pattern dimensions = Pattern.compile("(?: ?)+(?:d|default|([0-9]+) ([0-9]+))(?: ?)+");
         Matcher dimensions_matcher = dimensions.matcher(paint_dimensions);
+
         while (!dimensions.matcher(paint_dimensions).matches()) {
             System.out.println("""
                     Invalid, enter one of the following:\s

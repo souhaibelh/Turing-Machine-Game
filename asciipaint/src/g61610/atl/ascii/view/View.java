@@ -39,15 +39,7 @@ public class View {
         } else {
             System.out.println();
             for (int i=0; i<shapeList.size(); i++) {
-                String shapename;
-                if (shapeList.get(i) instanceof Circle) {
-                    shapename = "Circle";
-                } else if (shapeList.get(i) instanceof Square) {
-                    shapename = "Square";
-                } else {
-                    shapename = "Rectangle";
-                }
-                System.out.println(i + ". Shape: " + shapename + "-> Color: " + shapeList.get(i).getColor());
+                System.out.println(i + ". Shape: " + shapeList.get(i) + "-> Color: " + shapeList.get(i).getColor());
             }
             System.out.println();
         }

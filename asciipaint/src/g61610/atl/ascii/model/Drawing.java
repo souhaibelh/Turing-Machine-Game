@@ -54,6 +54,10 @@ public class Drawing {
         shapes.add(shape);
     }
 
+    protected void removeShape(Shape shape) {
+        shapes.remove(shape);
+    }
+
     /**
      * Iterates through all the shapes inside the board and returns the last one added that contains the Point p passed in
      * as a parameter, we want to get the last one for displaying purposes, so if we for example add a square of dimensions 20x20
