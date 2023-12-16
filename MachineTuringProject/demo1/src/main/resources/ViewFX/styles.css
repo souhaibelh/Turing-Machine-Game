@@ -1,0 +1,149 @@
+@font-face {
+    src: url(Turingmachinefont.otf);
+}
+
+.text-area {
+    -fx-border-width: 2;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+    -fx-font-family: "Agency FB";
+}
+
+.A {
+    -fx-border-color: white #2db563 #2db563 transparent;
+}
+
+.B {
+    -fx-border-color: white transparent #2db563 transparent;
+}
+
+.E {
+    -fx-border-color: white #2db563 transparent transparent;
+}
+
+.F {
+    -fx-border-color: white transparent transparent transparent;
+}
+
+.text-area .content, .text-field .content {
+    -fx-background-color: white;
+}
+
+.text-area:focused .content, .text-field:focused .content {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.text-field {
+    -fx-background-color: #eaf7ef;
+    -fx-border-radius: 12px;
+}
+
+.decorationtext {
+    -fx-font-family: "Machineturingfont";
+    -fx-font-weight: 500;
+    -fx-font-size: 32;
+    -fx-fill: #2db563;
+}
+
+.notes {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+
+.defaultbutton {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-font-family: "Machineturingfont";
+    -fx-font-size: 2em;
+    -fx-text-fill: #2db563;
+    -fx-background-radius: 6px;
+    -fx-max-width: 4em;
+    -fx-max-height: 4em;
+}
+
+.playNowButton {
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-background-color: transparent;
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 2em;
+    -fx-text-fill: black;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-max-width: 8em;
+    -fx-max-height: 8em;
+    -fx-font-weight: 900;
+}
+
+.playNowButton:pressed {
+    -fx-border-color: red;
+    -fx-border-width: 2;
+    -fx-background-color: transparent;
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 2em;
+    -fx-text-fill: black;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-max-width: 8em;
+    -fx-max-height: 8em;
+    -fx-font-weight: 900;
+}
+
+.defaultbutton:focused {
+    -fx-border-color: transparent, black;
+}
+
+.defaultbutton:pressed {
+    -fx-background-color: #2db563;
+    -fx-text-fill: white;
+}
+
+.notclicked {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-font-family: "Machineturingfont";
+    -fx-font-size: 2em;
+    -fx-background-radius: 6px;
+    -fx-max-width: 4em;
+    -fx-max-height: 4em;
+    -fx-background-color: #FF6A74;
+    -fx-text-fill: white;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 10;
+}
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-pref-height: 10;
+}
+
+.activeButton {
+    -fx-background-color: #2db563;
+    -fx-text-fill: white;
+}
+
+.layoutsCSS {
+    -fx-border-radius: 15px;
+    -fx-background-radius: 12px;
+    -fx-padding: 10;
+}
+
+.invalidLayoutCSS {
+    -fx-background-color: #FF6A74;
+}
+
+.borderturing {
+    -fx-border-radius: 15px;
+    -fx-border-color: #2db563;
+    -fx-border-width: 2;
+}
+
+.clickedLevel {
+    -fx-background-color: white;
+    -fx-border-color: black;
+}

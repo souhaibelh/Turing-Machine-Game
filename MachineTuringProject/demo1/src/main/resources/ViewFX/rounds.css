@@ -1,0 +1,7 @@
+.boxesContainer {
+    -fx-padding: 20;
+}
+
+.topLetters {
+    -fx-font-size: 42px;
+}
