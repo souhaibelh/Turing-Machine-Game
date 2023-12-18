@@ -25,6 +25,11 @@ public class NextRoundCommand implements Command {
         this.game = game;
     }
 
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.NEXT_ROUND;
+    }
+
     /**
      * We execute the command, exception handling is done in the facade TuringMachine,
      * if round skipped successfully we store the important information that the observer needs in the
@@ -33,10 +38,6 @@ public class NextRoundCommand implements Command {
     @Override
     public void execute() {
         game.nextRound();
-        event.setDoneCommandType(CommandType.NEXT_ROUND);
-        event.setScore(game.getScore());
-        event.setCurrentRound(game.getTotalRounds());
-        turingMachine.notifyObservers(event);
     }
 
     /**
@@ -47,10 +48,5 @@ public class NextRoundCommand implements Command {
     @Override
     public void unexecute() {
         game.previousRound();
-        event.setUndoneCommandType(CommandType.NEXT_ROUND);
-        event.setScore(game.getScore());
-        event.setCurrentRound(game.getTotalRounds());
-        event.setCode(game.getCurrentUserCode());
-        turingMachine.notifyObservers(event);
     }
 }

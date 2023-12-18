@@ -1,5 +1,7 @@
 package ModelUtils;
 
+import Model.enums.CommandType;
+
 public interface Command {
     /**
      * This method executes a command
@@ -10,4 +12,6 @@ public interface Command {
      * This method unexecutes a command
      */
     void unexecute();
+
+    CommandType getCommandType();
 }

@@ -12,6 +12,8 @@ import ModelUtils.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Model.enums.CommandType.*;
+
 /**
  * This is the model, used to update the view with Observer Observable pattern.
  */
@@ -19,6 +21,8 @@ public class TuringMachine implements Observable {
     private final List<Observer> observerList;
     private final CommandManager cm;
     private final Game game;
+    private boolean verificationResult;
+    private boolean isWon;
 
     /**
      * Has a command manager for the commands, so we can undo redo and has a game instance and also a observerList
@@ -42,14 +46,71 @@ public class TuringMachine implements Observable {
      * Undoes the last command
      */
     public void undo() {
-        cm.undo();
+        CommandType undone = cm.undo();
+        TuringMachineChangeEvent change = new TuringMachineChangeEvent();
+        if (undone != null) {
+            switch (undone) {
+                case ADD_CODE -> {
+                    change.setUndoneCommandType(CommandType.ADD_CODE);
+                    change.setScore(game.getScore());
+                    change.setCode(game.getCurrentUserCode());
+                    change.setCurrentRound(game.getTotalRounds());
+                }
+                case VALIDATE_VERIFIER -> {
+                    change.setUndoneCommandType(VALIDATE_VERIFIER);
+                    change.setScore(game.getScore());
+                    change.setCurrentRound(game.getTotalRounds());
+                }
+                case NEXT_ROUND -> {
+                    change.setUndoneCommandType(NEXT_ROUND);
+                    change.setCode(game.getCurrentUserCode());
+                    change.setScore(game.getScore());
+                    change.setCurrentRound(game.getTotalRounds());
+                }
+                case CHECK_CODE -> {
+                    change.setUndoneCommandType(CommandType.CHECK_CODE);
+                    change.setGameFinished(false);
+                    change.setGameWon(false);
+                }
+            }
+        }
+        notifyObservers(change);
     }
 
     /**
      * Redoes the last command
      */
     public void redo() {
-        cm.redo();
+        CommandType redone = cm.redo();
+        TuringMachineChangeEvent change = new TuringMachineChangeEvent();
+        if (redone != null) {
+            switch (redone) {
+                case ADD_CODE -> {
+                    change.setDoneCommandType(CommandType.ADD_CODE);
+                    change.setScore(game.getScore());
+                    change.setCode(game.getCurrentUserCode());
+                    change.setCurrentRound(game.getTotalRounds());
+                }
+                case VALIDATE_VERIFIER -> {
+                    change.setDoneCommandType(VALIDATE_VERIFIER);
+                    change.setVerifierResult(game.getCurrentValidatorResult());
+                    change.setScore(game.getScore());
+                    change.setCurrentRound(game.getTotalRounds());
+                }
+                case NEXT_ROUND -> {
+                    change.setDoneCommandType(NEXT_ROUND);
+                    change.setScore(game.getScore());
+                    change.setCurrentRound(game.getTotalRounds());
+                    notifyObservers(change);
+                }
+                case CHECK_CODE -> {
+                    change.setDoneCommandType(CommandType.CHECK_CODE);
+                    change.setGameFinished(true);
+                    change.setGameWon(isWon);
+                }
+            }
+        }
+        notifyObservers(change);
     }
 
     /**
@@ -60,11 +121,16 @@ public class TuringMachine implements Observable {
         TuringMachineChangeEvent change = new TuringMachineChangeEvent();
         try {
             Code currentCode = new Code(code);
-            AddCodeCommand addCodeCommand = new AddCodeCommand(game, currentCode, this);
+            AddCodeCommand addCodeCommand = new AddCodeCommand(game, currentCode);
             cm.newCommand(addCodeCommand);
+            change.setDoneCommandType(CommandType.ADD_CODE);
+            change.setScore(game.getScore());
+            change.setCode(addCodeCommand.getNewCode());
+            change.setCurrentRound(game.getTotalRounds());
         } catch (TuringMachineException e) {
-            change.setErrorCommandType(CommandType.ADD_CODE);
+            change.setErrorCommandType(ADD_CODE);
             change.setErrorMessage(e.getMessage());
+        } finally {
             notifyObservers(change);
         }
     }
@@ -78,9 +144,16 @@ public class TuringMachine implements Observable {
         try {
             ValidateCommand validateCommand = new ValidateCommand(game, verifierIndex, this);
             cm.newCommand(validateCommand);
+            verificationResult = validateCommand.getIsValidVerification();
+            change.setDoneCommandType(VALIDATE_VERIFIER);
+            change.setVerifierResult(validateCommand.getIsValidVerification());
+            change.setScore(game.getScore());
+            change.setCurrentRound(game.getTotalRounds());
+            change.setVerifierIndex(verifierIndex);
         } catch (TuringMachineException e) {
-            change.setErrorCommandType(CommandType.VALIDATE_VERIFIER);
+            change.setErrorCommandType(VALIDATE_VERIFIER);
             change.setErrorMessage(e.getMessage());
+        } finally {
             notifyObservers(change);
         }
     }
@@ -93,9 +166,13 @@ public class TuringMachine implements Observable {
         try {
             NextRoundCommand nextRoundCommand = new NextRoundCommand(game, this);
             cm.newCommand(nextRoundCommand);
+            change.setDoneCommandType(NEXT_ROUND);
+            change.setScore(game.getScore());
+            change.setCurrentRound(game.getTotalRounds());
         } catch (TuringMachineException e) {
-            change.setErrorCommandType(CommandType.NEXT_ROUND);
+            change.setErrorCommandType(NEXT_ROUND);
             change.setErrorMessage(e.getMessage());
+        } finally {
             notifyObservers(change);
         }
     }
@@ -108,9 +185,14 @@ public class TuringMachine implements Observable {
         try {
              CheckCodeCommand checkCodeCommand = new CheckCodeCommand(game, this);
              cm.newCommand(checkCodeCommand);
+             isWon = checkCodeCommand.getWon();
+             change.setDoneCommandType(CommandType.CHECK_CODE);
+             change.setGameFinished(true);
+             change.setGameWon(isWon);
         } catch (TuringMachineException e) {
-            change.setErrorCommandType(CommandType.CHECK_CODE);
-            change.setErrorMessage(e.getMessage());
+             change.setErrorCommandType(CommandType.CHECK_CODE);
+             change.setErrorMessage(e.getMessage());
+        } finally {
             notifyObservers(change);
         }
     }
@@ -139,8 +221,8 @@ public class TuringMachine implements Observable {
 
     @Override
     public void notifyObservers(TuringMachineChangeEvent event) {
-        for (Observer b : observerList) {
-            b.update(event);
+        for (Observer x : observerList) {
+            x.update(event);
         }
     }
 }

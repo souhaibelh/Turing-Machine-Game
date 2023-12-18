@@ -11,7 +11,6 @@ public class TuringMachineChangeEvent {
     private int currentRound;
     private String errorMessage;
     private CommandType undoneCommandType;
-
     private CommandType doneCommandType;
     private CommandType errorCommandType;
     private boolean doneCommand;
@@ -21,7 +20,6 @@ public class TuringMachineChangeEvent {
     private boolean isGameWon;
 
     public TuringMachineChangeEvent() {
-
     }
 
     public void setErrorCommandType(CommandType commandType) {

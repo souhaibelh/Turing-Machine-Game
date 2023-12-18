@@ -10,6 +10,7 @@ import java.util.List;
 public class Round extends Consumable {
     private final Level level;
     private final List<TuringMachineVerifier> consumedVerifiers;
+    private final List<Boolean> verifiersResult;
     private Code userCode;
 
     /**
@@ -18,6 +19,7 @@ public class Round extends Consumable {
      */
     public Round(Level level) {
         this.level = level;
+        verifiersResult = new ArrayList<>();
         consumedVerifiers = new ArrayList<>();
     }
 
@@ -62,6 +64,7 @@ public class Round extends Consumable {
         boolean result = verifier.getResult(userCode) == verifier.getResult(level.getCode()); // store the result computed by the verifiers
         verifier.consume(); // consume the verifier
         consumedVerifiers.add(verifier); // add the verifier to the consumedVerifiers list (keeps track of it)
+        verifiersResult.add(result);
         return result; // return the result computer by the verifiers
     }
 
@@ -73,6 +76,8 @@ public class Round extends Consumable {
     public void unVerify(int verifierIndex) {
         TuringMachineVerifier verifier = getVerifierByIndex(verifierIndex);
         verifier.unconsume();
+        consumedVerifiers.remove(verifier);
+        verifiersResult.remove(verifiersResult.size() - 1);
     }
 
     /**
@@ -87,5 +92,9 @@ public class Round extends Consumable {
             throw new TuringMachineException("You can't use this verifier on this level!");
         }
         return level.getVerifiers().get(index); // return the verifier in the level
+    }
+
+    public boolean getLastVerifiedResult() {
+        return verifiersResult.get(verifiersResult.size() - 1);
     }
 }

@@ -13,6 +13,7 @@ public class CheckCodeCommand implements Command {
     private final Game game;
     private final TuringMachine turingMachine;
     private final TuringMachineChangeEvent event;
+    private boolean isWon;
 
     /**
      * Constructs the command, uses the game and the facade
@@ -25,6 +26,15 @@ public class CheckCodeCommand implements Command {
         event = new TuringMachineChangeEvent();
     }
 
+    public boolean getWon() {
+        return this.isWon;
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.CHECK_CODE;
+    }
+
     /**
      * We execute the command, exception handling is done in the facade TuringMachine,
      * if code checked successfully we store the important information that the observer needs in the
@@ -32,11 +42,7 @@ public class CheckCodeCommand implements Command {
      */
     @Override
     public void execute() {
-        boolean result = game.checkCode();
-        event.setDoneCommandType(CommandType.CHECK_CODE);
-        event.setGameFinished(true);
-        event.setGameWon(result);
-        turingMachine.notifyObservers(event);
+        isWon = game.checkCode();
     }
 
     /**
@@ -46,9 +52,6 @@ public class CheckCodeCommand implements Command {
      */
     @Override
     public void unexecute() {
-        event.setUndoneCommandType(CommandType.CHECK_CODE);
-        event.setGameFinished(false);
-        event.setGameWon(false);
-        turingMachine.notifyObservers(event);
+        game.uncheckCode();
     }
 }

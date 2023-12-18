@@ -12,35 +12,33 @@ public class AddCodeCommand implements Command {
     private final Code oldCode;
     private final Game game;
     private final TuringMachineChangeEvent event;
-    private final TuringMachine turingMachine;
-
     /**
      * Takes in the game, the code to add, the turing machine that added it (so we can update the observers)
      * @param game game being played
      * @param code code being added
-     * @param turingMachine facade handling it
      */
-    public AddCodeCommand(Game game, Code code, TuringMachine turingMachine) {
+    public AddCodeCommand(Game game, Code code) {
         newCode = code;
         oldCode = game.getCurrentUserCode();
         this.game = game;
-        this.turingMachine = turingMachine;
         event = new TuringMachineChangeEvent();
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.ADD_CODE;
     }
 
     /**
      * We execute the command, exception handling is done in the facade TuringMachine,
      * if code added successfully we store the important information that the observer needs in the
-     * TuringMachineChangeEvent instance and then we use turingMachine to notify observers.
+     * TuringMachineChangeEvent instance, and then we use turingMachine to notify observers.
+     *
+     * @return
      */
     @Override
     public void execute() {
         game.addCode(newCode);
-        event.setDoneCommandType(CommandType.ADD_CODE);
-        event.setScore(game.getScore());
-        event.setCode(newCode);
-        event.setCurrentRound(game.getTotalRounds());
-        turingMachine.notifyObservers(event);
     }
 
     /**
@@ -51,10 +49,9 @@ public class AddCodeCommand implements Command {
     @Override
     public void unexecute() {
         game.addCode(oldCode);
-        event.setUndoneCommandType(CommandType.ADD_CODE);
-        event.setScore(game.getScore());
-        event.setCode(oldCode);
-        event.setCurrentRound(game.getTotalRounds());
-        turingMachine.notifyObservers(event);
+    }
+
+    public Code getNewCode() {
+        return newCode;
     }
 }

@@ -68,7 +68,6 @@ public class GameApp extends Application {
         model.registerObserver(view);
 
         // Attach controller to model
-
         buttonBar.getOkButton().addEventHandler(ActionEvent.ACTION, event -> {
             model.addCode(
                     keyboardFx.getFirstDigit() + keyboardFx.getSecondDigit() + keyboardFx.getThirdDigit()
@@ -100,7 +99,7 @@ public class GameApp extends Application {
         // we start showing level select scene
         primaryStage.setScene(levelSelectScene);
         primaryStage.show();
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
     }
 
     private Level getReadyLevel(int index) {

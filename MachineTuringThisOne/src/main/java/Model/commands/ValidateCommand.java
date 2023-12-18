@@ -10,6 +10,7 @@ public class ValidateCommand implements Command {
     private final int verifierIndex;
     private final TuringMachine turingMachine;
     private final TuringMachineChangeEvent event;
+    private boolean isValidVerification;
 
     public ValidateCommand(Game game, int verifierIndex, TuringMachine turingMachine) {
         this.game = game;
@@ -18,24 +19,22 @@ public class ValidateCommand implements Command {
         this.event = new TuringMachineChangeEvent();
     }
 
+    public boolean getIsValidVerification() {
+        return this.isValidVerification;
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.VALIDATE_VERIFIER;
+    }
+
     @Override
     public void execute() {
-        boolean result = game.verify(verifierIndex);
-        event.setDoneCommandType(CommandType.VALIDATE_VERIFIER);
-        event.setScore(game.getScore());
-        event.setCurrentRound(game.getTotalRounds());
-        event.setVerifierIndex(verifierIndex);
-        event.setVerifierResult(result);
-        turingMachine.notifyObservers(event);
+        isValidVerification = game.verify(verifierIndex);
     }
 
     @Override
     public void unexecute() {
         game.unverify(verifierIndex);
-        event.setUndoneCommandType(CommandType.VALIDATE_VERIFIER);
-        event.setScore(game.getScore());
-        event.setCurrentRound(game.getTotalRounds());
-        event.setVerifierIndex(verifierIndex);
-        turingMachine.notifyObservers(event);
     }
 }

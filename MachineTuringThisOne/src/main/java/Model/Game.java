@@ -129,6 +129,7 @@ public class Game {
      */
     public boolean checkCode() {
         generalVerifications();
+        gameOver = true;
         // if there aren't any rounds throw an exception
         if (gameRounds.isEmpty()) {
             throw new TuringMachineException("You haven't played a single round yet");
@@ -189,5 +190,13 @@ public class Game {
         setInitialState();
         currentLevel = level;
         gameRounds.add(new Round(currentLevel));
+    }
+
+    public void uncheckCode() {
+        gameOver = false;
+    }
+
+    public boolean getCurrentValidatorResult() {
+        return gameRounds.get(gameRounds.size() - 1).getLastVerifiedResult();
     }
 }

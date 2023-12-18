@@ -1,5 +1,7 @@
 package ModelUtils;
 
+import Model.enums.CommandType;
+
 import java.util.Stack;
 
 /**
@@ -22,23 +24,29 @@ public class CommandManager {
     /**
      * Undoes the previous command
      */
-    public void undo() {
+    public CommandType undo() {
+        CommandType undoCommand = null;
         if (!undoStack.isEmpty()) {
             Command command = undoStack.pop();
+            undoCommand = command.getCommandType();
             command.unexecute();
             redoStack.push(command);
         }
+        return undoCommand;
     }
 
     /**
      * Redoes the previous command
      */
-    public void redo() {
+    public CommandType redo() {
+        CommandType redoCommand = null;
         if (!redoStack.isEmpty()) {
             Command command = redoStack.pop();
+            redoCommand = command.getCommandType();
             command.execute();
             undoStack.push(command);
         }
+        return redoCommand;
     }
 }
 
