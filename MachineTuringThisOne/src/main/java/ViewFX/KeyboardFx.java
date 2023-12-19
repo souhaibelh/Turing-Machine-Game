@@ -152,9 +152,15 @@ public class KeyboardFx extends HBox {
     }
 
     public void showNotClicked() {
-        showNotClickedBtnList(circleButtons);
-        showNotClickedBtnList(squareButtons);
-        showNotClickedBtnList(triangleButtons);
+        if (!isCircleButtonClicked()) {
+            showNotClickedBtnList(circleButtons);
+        }
+        if (!isTriangleButtonClicked()) {
+            showNotClickedBtnList(triangleButtons);
+        }
+        if (!isSquareButtonClicked()) {
+            showNotClickedBtnList(squareButtons);
+        }
     }
 
     private void showNotClickedBtnList(ObservableList<Button> buttons) {

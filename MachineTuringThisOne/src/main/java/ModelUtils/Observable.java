@@ -13,5 +13,9 @@ public interface Observable {
 
     void removeObserver(Observer o);
 
-    void notifyObservers(TuringMachineChangeEvent event);
+    default void notifyObservers(TuringMachineChangeEvent event, List<Observer> observableList) {
+        for (Observer b : observableList) {
+            b.update(event);
+        }
+    }
 }

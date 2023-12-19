@@ -8,19 +8,18 @@ import ModelUtils.Command;
 public class ValidateCommand implements Command {
     private final Game game;
     private final int verifierIndex;
-    private final TuringMachine turingMachine;
-    private final TuringMachineChangeEvent event;
     private boolean isValidVerification;
 
     public ValidateCommand(Game game, int verifierIndex, TuringMachine turingMachine) {
         this.game = game;
         this.verifierIndex = verifierIndex;
-        this.turingMachine = turingMachine;
-        this.event = new TuringMachineChangeEvent();
     }
 
     public boolean getIsValidVerification() {
         return this.isValidVerification;
+    }
+    public int getVerifierIndex() {
+        return this.verifierIndex;
     }
 
     @Override

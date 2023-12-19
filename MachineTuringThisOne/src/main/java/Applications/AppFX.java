@@ -1,8 +1,9 @@
-package ViewFX;
+package Applications;
 import Model.Level;
 import Model.TuringMachine;
 import GeneralMethods.FileMethods;
 import Constants.NumericConstants;
+import ViewFX.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -12,7 +13,7 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class GameApp extends Application {
+public class AppFX extends Application {
     private TuringMachine model;
     private List<Level> levelsInformation;
 

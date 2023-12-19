@@ -18,4 +18,6 @@ module com.example.demo {
     opens Model.commands to javafx.fxml;
     exports Model.enums;
     opens Model.enums to javafx.fxml;
+    exports Applications;
+    opens Applications to javafx.fxml;
 }

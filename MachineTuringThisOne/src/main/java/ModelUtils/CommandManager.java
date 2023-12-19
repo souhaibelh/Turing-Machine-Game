@@ -24,11 +24,11 @@ public class CommandManager {
     /**
      * Undoes the previous command
      */
-    public CommandType undo() {
-        CommandType undoCommand = null;
+    public Command undo() {
+        Command undoCommand = null;
         if (!undoStack.isEmpty()) {
             Command command = undoStack.pop();
-            undoCommand = command.getCommandType();
+            undoCommand = command;
             command.unexecute();
             redoStack.push(command);
         }
@@ -38,11 +38,11 @@ public class CommandManager {
     /**
      * Redoes the previous command
      */
-    public CommandType redo() {
-        CommandType redoCommand = null;
+    public Command redo() {
+        Command redoCommand = null;
         if (!redoStack.isEmpty()) {
             Command command = redoStack.pop();
-            redoCommand = command.getCommandType();
+            redoCommand = command;
             command.execute();
             undoStack.push(command);
         }

@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Defines what a round is in TuringMachine game
@@ -10,7 +11,6 @@ import java.util.List;
 public class Round extends Consumable {
     private final Level level;
     private final List<TuringMachineVerifier> consumedVerifiers;
-    private final List<Boolean> verifiersResult;
     private Code userCode;
 
     /**
@@ -19,7 +19,6 @@ public class Round extends Consumable {
      */
     public Round(Level level) {
         this.level = level;
-        verifiersResult = new ArrayList<>();
         consumedVerifiers = new ArrayList<>();
     }
 
@@ -59,12 +58,14 @@ public class Round extends Consumable {
             throw new TuringMachineException("You have already used 3 validators in this round");
         } else if (userCode == null) { // if the code of the user is null it means he hasn't added a code yet, throw an exception
             throw new TuringMachineException("Add a code to the round before verifying!");
+        } else if (consumedVerifiers.contains(verifier)) {
+            throw new TuringMachineException("You have already verified this verifier");
         }
 
         boolean result = verifier.getResult(userCode) == verifier.getResult(level.getCode()); // store the result computed by the verifiers
         verifier.consume(); // consume the verifier
         consumedVerifiers.add(verifier); // add the verifier to the consumedVerifiers list (keeps track of it)
-        verifiersResult.add(result);
+        System.out.println(consumedVerifiers);
         return result; // return the result computer by the verifiers
     }
 
@@ -77,7 +78,6 @@ public class Round extends Consumable {
         TuringMachineVerifier verifier = getVerifierByIndex(verifierIndex);
         verifier.unconsume();
         consumedVerifiers.remove(verifier);
-        verifiersResult.remove(verifiersResult.size() - 1);
     }
 
     /**
@@ -92,9 +92,5 @@ public class Round extends Consumable {
             throw new TuringMachineException("You can't use this verifier on this level!");
         }
         return level.getVerifiers().get(index); // return the verifier in the level
-    }
-
-    public boolean getLastVerifiedResult() {
-        return verifiersResult.get(verifiersResult.size() - 1);
     }
 }

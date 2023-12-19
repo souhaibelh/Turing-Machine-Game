@@ -195,8 +195,4 @@ public class Game {
     public void uncheckCode() {
         gameOver = false;
     }
-
-    public boolean getCurrentValidatorResult() {
-        return gameRounds.get(gameRounds.size() - 1).getLastVerifiedResult();
-    }
 }
